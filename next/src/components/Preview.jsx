@@ -1,20 +1,46 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
-import logo from '@/utils/logo_template.jpg';
+import Link from "next/link";
 
+import food from '@/utils/food_template.jpg';
+import heart from '@/utils/heart.png'
+
+function handleclick () { //todo function
+    console.log("liked")
+}
+
+//yellow render warning
 function Preview(props) {
     return (
-        <div>
-            <div>Preview</div>
-            <Image
-                className='mx-2'
-                src={logo}
-                alt="home"
-                width={35}
-                height={35}
-            />
+        <div className="relative mx-2 ms-5">
+            <Link href="/recipe/1">
+                <div className="relative">
+                    <Image
+                        src={food}
+                        alt="home"
+                        width={200}
+                        height={112}
+                        priority={true}
+                        placeholder="blur"
+                        className="rounded-md"
+                    />
+                </div>
+                <div className="flex justify-center font-bold bg-gray-300 rounded-md">Food name daisy</div>
+            </Link>
 
-
+            <button
+                className="absolute top-0 right-0 p-1"
+                onClick={handleclick}
+            >
+                <Image
+                    src={heart}
+                    alt="favorite"
+                    width={35}
+                    height={35}
+                    priority={true}
+                />
+            </button>
         </div>
     );
 }
