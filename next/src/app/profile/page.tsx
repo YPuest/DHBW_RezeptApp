@@ -20,18 +20,18 @@ export default function Profile() {
     return (
         (isLoggedIn)? (
             <div className="grid justify-center text-center">
-                <Link href='/profile/create_recipe'>Create new recipe</Link>
-                <Link href='/profile/own_recipe'>See own recipes</Link>
-                <Link href='/profile/options'>Edit Profile</Link>
-                <button onClick={handleDelete}>Delete Account</button>
+                <Link href='/profile/create_recipe' className="button_1">Create new recipe</Link>
+                <Link href='/profile/own_recipe' className="button_1">See own recipes</Link>
+                <Link href='/profile/options' className="button_1">Edit Profile</Link>
+                <button onClick={handleDelete} className="button_1">Delete Account</button>
                 {isDelete ? <DeleteAccount setIsDelete={setIsDelete} setIsLoggedIn={setIsLoggedIn}/> : <></>}
-                <button onClick={handleLogin}>Sign Out</button>
+                <button onClick={handleLogin} className="button_1">Sign Out</button>
             </div>
         ) :
         (
             <div className="grid justify-center text-center">
-                <button onClick={handleLogin}>Sign In</button>
-                <button>Register</button>
+                <button onClick={handleLogin} className="button_1">Sign In</button>
+                <button className="button_1">Register</button>
             </div>
         )
     )
