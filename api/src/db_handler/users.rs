@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
-struct User {
+pub struct User {
     name: String,
     password: String,
 }
