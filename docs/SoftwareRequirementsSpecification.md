@@ -7,6 +7,7 @@
 ### 1.1 Übersicht
 > Was sind die Verkaufsargumente bzw. Alleinstellungsmerkmale Ihrer Softrware?
 
+test
 ### 1.2 Geltungsbereich
 > Was wird in diesem Dokument behandelt (nicht behandelt)? Ist es für Ihr gesamtes System oder ein Subsystem? Deckt es sowohl funktionale als auch nichtfunktionale Anforderungen ab? (Werden Sie einige Anforderungen in ein anderes Dokument auslagern?)
 
