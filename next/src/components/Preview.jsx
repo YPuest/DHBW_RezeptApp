@@ -6,7 +6,7 @@ import Link from "next/link";
 import food from '@/utils/food_template.jpg';
 import heart from '@/utils/heart.png'
 
-function handleclick () { //todo function
+function handleclick (props) { //todo function
     console.log("liked")
 }
 
@@ -29,18 +29,21 @@ function Preview(props) {
                 <div className="flex justify-center font-bold bg-gray-300 rounded-md">Food name daisy</div>
             </Link>
 
-            <button
-                className="absolute top-0 right-0 p-1"
-                onClick={handleclick}
-            >
-                <Image
-                    src={heart}
-                    alt="favorite"
-                    width={35}
-                    height={35}
-                    priority={true}
-                />
-            </button>
+            {!props.isOwn ? (
+                <button
+                    className="absolute top-0 right-0 p-1 hover:scale-125 border-2"
+                    onClick={handleclick}
+                >
+                    <Image
+                        src={heart}
+                        alt="favorite"
+                        width={35}
+                        height={35}
+                        priority={true}
+                    />
+                </button>
+            ):(<></>)
+            }
         </div>
     );
 }
