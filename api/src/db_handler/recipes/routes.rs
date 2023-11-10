@@ -14,7 +14,11 @@ pub fn get_recipe_routes() -> Router {
 }
 
 pub async fn handle_get_recipes(Extension(pool): Extension<MySqlPool>, Json(ingredients): Json<RecipeRequest>) -> Response {
-    let recipes = get_recipes_from_ingredients(&pool, "nudeln").await;
+    if ingredients.ingredients.len() == 0 {
+        return StatusCode::BAD_REQUEST.into_response();
+    }
+
+    let recipes = get_recipes_from_ingredients(&pool, ingredients.ingredients).await;
 
     match recipes {
         Ok(recipes) => {
