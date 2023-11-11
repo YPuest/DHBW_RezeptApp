@@ -45,10 +45,8 @@ export default function AccountOptions () {
                     <input type='text' disabled={isDisabled} placeholder={addressCity} className='border-2'></input>
                     <input type='text' disabled={isDisabled} placeholder={phonenumber} className='border-2'></input>
                     <input type='text' disabled={isDisabled} placeholder={email} className='border-2'></input>
-                    <button type='submit' onClick={handleEdit}>{edit}</button>
-                    
+                    <button type='submit' onClick={handleEdit} className='button_1'>{edit}</button>
                 </form>
-
             </div>
         </div>
     );

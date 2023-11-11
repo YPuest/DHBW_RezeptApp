@@ -30,7 +30,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/profile/create_recipe/page.js"  ],
+, "src/app/profile/create_recipe/page.tsx"  ],
   "exclude": [
     "node_modules"
   ]

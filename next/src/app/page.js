@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Preview from "@/components/Preview";
+import Preview from "@/components/Test";
 import logo from "@/utils/logo_template.jpg";
 import React from "react";
 
@@ -11,12 +11,14 @@ export default function Home() {
         <div key={category}>
             <div className="flex justify-center mt-10 font-bold text-2xl">{category}</div>
             <div className="flex justify-center">
-                {[...Array(5)].map((_, i) => (
+                {[...Array(3)].map((_, i) => (
                     <Preview key={`${category}-${i}`} />
                     ))}
             </div>
         </div>
     ));
+
+    
 
     return (
         <div>

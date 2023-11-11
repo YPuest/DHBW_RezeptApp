@@ -4,6 +4,7 @@ import {useState} from "react";
 import Link from 'next/link';
 
 import DeleteAccount from '@/components/DeleteAccount';
+import Sign from '@/components/Sign';
 
 export default function Profile() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,7 +33,11 @@ export default function Profile() {
             <div className="grid justify-center text-center">
                 <button onClick={handleLogin} className="button_1">Sign In</button>
                 <button className="button_1">Register</button>
+
+                <Sign />
             </div>
+
+            
         )
     )
 }
