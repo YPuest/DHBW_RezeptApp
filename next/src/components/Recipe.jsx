@@ -1,18 +1,16 @@
 import React from 'react';
-import Ingredients from "./Ingredients";
+import Ingredient from "./Ingredient";
 
 function Recipe(props) {
     let name;
     let image;
     let description;
-
-    //GetData
+    let ingredients;
 
     return (
         <div>
             <div>Recipe {props.id}</div>
-
-            <Ingredients />
+            <Ingredient />
         </div>
     );
 }

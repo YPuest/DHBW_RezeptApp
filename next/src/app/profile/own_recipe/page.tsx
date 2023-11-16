@@ -1,10 +1,10 @@
 import React from "react";
 
-import Preview from '@/components/Preview';
+import RecipePreview from '@/components/RecipePreview';
 
 export default function OwnRecipes() {
 
-    const recipes = [<Preview isOwn="true"/>, <Preview isOwn="true"/>]
+    const recipes = [<RecipePreview isOwn="true"/>, <RecipePreview isOwn="true"/>]
 
     return (
         <div>

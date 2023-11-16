@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default function () {
-
+export default function (props) {
     return (
         <div>
             <form className='grid'>
@@ -9,7 +8,7 @@ export default function () {
                 <input className='border-2'></input>
                 <div>Password</div>
                 <input className='border-2'></input>
-                <button type='submit' className='button_1'>Sign-In</button>
+                <button type='submit' className='button_1' onClick={props.handleLogin}>Sign-In</button>
                 <button type='submit' className='button_1'>Register</button>
             </form>
         </div>

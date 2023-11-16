@@ -1,13 +1,13 @@
 import React from 'react';
 
-function Ingredients(props) {
+function Ingredient(props) {
     let name;
     let amount;
     let unit;
     
     return (
-        <div>Ingredients</div>
+        <div></div>
     );
 }
 
-export default Ingredients;
+export default Ingredient;
