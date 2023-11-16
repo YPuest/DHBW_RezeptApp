@@ -6,6 +6,7 @@ mod db_handler;
 
 use crate::db_handler::recipes::routes::get_recipe_routes;
 use crate::db_handler::users::routes::get_user_routes;
+use tower_http::cors::CorsLayer;
 
 #[tokio::main]
 async fn main() {
@@ -16,6 +17,7 @@ async fn main() {
         .nest("/recipes", get_recipe_routes())
         .nest("/users", get_user_routes())
         .layer(ServiceBuilder::new()
+            .layer(CorsLayer::permissive())
             .layer(Extension(mysql_pool))
         );
 
