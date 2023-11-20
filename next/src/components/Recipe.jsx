@@ -14,19 +14,26 @@ function Recipe(props) {
     const time = recipes.selectedRecipe.time;
     const ingredients = recipes.selectedRecipe.ingredients;
     const preparation = recipes.selectedRecipe.preparation;
+    const image = recipes.selectedRecipe.image;
 
-    const image = food;
+    let prep = [];
+    for (let i = 0; i < preparation.length; i++) {
+        prep.push(<div>Schritt {i+1}</div>)
+    }
 
     return (
         <div>
-            <Image src={image} alt="" width={150} height={30} priority="true" className="rounded"/>
+            <Image src={image} alt="" width={200} height={150} priority={true}></Image>
             <div>{name}</div>
             <div>{difficulty}</div>
             <div>{time}</div>
             <div>{ingredients}</div>
+            <button className="button_1">Fav</button>
+
             <div>{preparation}</div>
 
-            <button className="button_1">Fav</button>
+
+
         </div>
     );
 }

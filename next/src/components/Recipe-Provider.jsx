@@ -16,6 +16,7 @@ export default function RecipeProvider({ children }) {
             time: '30 minutes',
             ingredients: ['Ingredient1', 'Ingredient2'],
             preparation: ['Step1', 'Step2'],
+            image: "https://i.imgur.com/WaQ0dMz.png",
         },
         {
             name: 'Recipe2',
@@ -23,6 +24,7 @@ export default function RecipeProvider({ children }) {
             time: '30 minutes',
             ingredients: ['Ingredient1', 'Ingredient2'],
             preparation: ['Step1', 'Step2'],
+            image: "https://imgur.com/dT8vt0u",
         },
         // Add more recipes as needed
     ]);
