@@ -6,7 +6,9 @@ function Ingredient(props) {
     let unit;
     
     return (
-        <div></div>
+        <div>
+            {amount}, {name}, {unit}
+        </div>
     );
 }
 

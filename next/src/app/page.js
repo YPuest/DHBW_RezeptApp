@@ -1,7 +1,8 @@
-import Image from 'next/image'
+"use client";
+
 import Preview from "@/components/Test";
-import logo from "@/utils/logo_template.jpg";
 import React from "react";
+import { useThemContext } from "@/components/Recipe-Provider";
 
 export default function Home() {
     const food_categories = ["Potato", "Pasta", "Fish"] // "Dessert", "Side dishes", "Cocktails"
@@ -17,8 +18,6 @@ export default function Home() {
             </div>
         </div>
     ));
-
-    
 
     return (
         <div>
