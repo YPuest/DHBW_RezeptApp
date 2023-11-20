@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { useThemContext } from "@/components/Recipe-Provider";
+import { useRecipeContext } from "@/components/Recipe-Provider";
 
 function Search(props) {
     const [text, setText] = useState('');
-    const recipe = useThemContext();
+    const recipe = useRecipeContext();
 
     async function handleSearch() {
         console.log(text);

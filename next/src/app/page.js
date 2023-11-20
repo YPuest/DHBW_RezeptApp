@@ -2,10 +2,11 @@
 
 import Preview from "@/components/Test";
 import React from "react";
-import { useThemContext } from "@/components/Recipe-Provider";
+import { useRecipeContext } from "@/components/Recipe-Provider";
 
 export default function Home() {
     const food_categories = ["Potato", "Pasta", "Fish"] // "Dessert", "Side dishes", "Cocktails"
+    const recipes = useRecipeContext();
 
     // fetch preview food
     const previews = food_categories.map((category) => (
@@ -22,6 +23,7 @@ export default function Home() {
     return (
         <div>
             {previews}
+            <div>{recipes.selectedRecipe.name}</div>
         </div>
     );
 }

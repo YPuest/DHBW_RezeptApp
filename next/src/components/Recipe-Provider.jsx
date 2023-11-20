@@ -2,28 +2,45 @@
 
 import {createContext, useContext, useState} from 'react';
 
-const ThemeContext = createContext();
+const RecipeContext = createContext();
 
-export function useThemContext(){
-    return useContext(ThemeContext);
+export function useRecipeContext(){
+    return useContext(RecipeContext);
 }
 
-export default function ThemeProvider({ children }) {
-    const [name, setName] = useState('nnn');
-    const [difficulty, setDifficulty] = useState('');
-    const [time, setTime] = useState('');
-    const [ingredients, setIngredients] = useState([]);
-    const [preparation, setPreparation] = useState([]);
+export default function RecipeProvider({ children }) {
+    const [recipes, setRecipes] = useState([
+        {
+            name: 'Recipe1',
+            difficulty: 'Easy',
+            time: '30 minutes',
+            ingredients: ['Ingredient1', 'Ingredient2'],
+            preparation: ['Step1', 'Step2'],
+        },
+        {
+            name: 'Recipe2',
+            difficulty: 'Easy',
+            time: '30 minutes',
+            ingredients: ['Ingredient1', 'Ingredient2'],
+            preparation: ['Step1', 'Step2'],
+        },
+        // Add more recipes as needed
+    ]);
+
+    const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(0);
+
+    const selectedRecipe = recipes[selectedRecipeIndex];
+
+    const contextValue = {
+        recipes,
+        selectedRecipeIndex,
+        selectedRecipe,
+        selectRecipe: (index) => setSelectedRecipeIndex(index),
+    };
 
     return (
-        <ThemeContext.Provider value={{
-            name, setName,
-            difficulty, setDifficulty,
-            time, setTime,
-            ingredients, setIngredients,
-            preparation, setPreparation}}
-        >
+        <RecipeContext.Provider value={contextValue}>
             {children}
-        </ThemeContext.Provider>
+        </RecipeContext.Provider>
     );
 }
