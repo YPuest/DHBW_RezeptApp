@@ -25,4 +25,6 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
+
+    println!("Server running @localhost:3010");
 }
