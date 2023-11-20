@@ -1,6 +1,7 @@
+use std::collections::{HashMap};
 use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, MySqlPool, query_as};
-use sqlx::types::{Json, JsonValue};
+use sqlx::types::{JsonValue};
 
 pub mod routes;
 
@@ -8,6 +9,13 @@ pub mod routes;
 pub struct Recipe {
     name: String,
     description: JsonValue,
+}
+
+#[derive(Debug, Serialize, Deserialize, FromRow)]
+pub struct RecipeResult {
+    name: String,
+    description: JsonValue,
+    importance: i8,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -27,15 +35,42 @@ pub async fn get_recipes_from_ingredients(pool: &MySqlPool, mut ingredients: Vec
         filter = format!("{filter} OR ingredients.name='{}'", &ingredients[i]);
     }
 
-    let query = format!("SELECT DISTINCT recipes.name, recipes.description FROM recipes \
+    let query = format!("SELECT recipes.name, recipes.description, importance FROM recipes \
         INNER JOIN recipe_ingredients ON recipes.id = recipe_ingredients.recipe_id \
         INNER JOIN ingredients \
         ON ingredients.id = recipe_ingredients.ingredient_id \
-        WHERE {}", filter);
+        WHERE {} ORDER BY recipes.name", filter);
 
-    let recipes = query_as::<_, Recipe>(&query)
+    let recipes = query_as::<_, RecipeResult>(&query)
         .fetch_all(pool)
         .await?;
 
-    Ok(recipes)
+    let weighted_recipes = parse_recipes(&recipes);
+    Ok(weighted_recipes)
+}
+
+fn parse_recipes(recipe_result: &Vec<RecipeResult>) -> Vec<Recipe> {
+    let mut recipes = HashMap::new();
+
+    for result in recipe_result.iter() {
+        if recipes.contains_key(&result.name) {
+            *recipes.get_mut(&result.name).unwrap() += result.importance;
+
+        } else {
+            recipes.insert(&result.name, result.importance);
+        }
+    }
+
+    let mut result = Vec::new();
+    for recipe in recipes {
+        if recipe.1 >= 50 {
+            let recipe_res = recipe_result.iter().find(|&res| {res.name == *recipe.0}).unwrap();
+            result.push(Recipe{
+                name: recipe_res.name.clone(),
+                description: recipe_res.description.clone(),
+            })
+        }
+    }
+
+    result
 }
