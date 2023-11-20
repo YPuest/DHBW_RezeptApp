@@ -9,12 +9,14 @@ pub mod routes;
 pub struct Recipe {
     name: String,
     description: JsonValue,
+    img_url: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct RecipeResult {
     name: String,
     description: JsonValue,
+    img_url: String,
     importance: i8,
 }
 
@@ -35,7 +37,7 @@ pub async fn get_recipes_from_ingredients(pool: &MySqlPool, mut ingredients: Vec
         filter = format!("{filter} OR ingredients.name='{}'", &ingredients[i]);
     }
 
-    let query = format!("SELECT recipes.name, recipes.description, importance FROM recipes \
+    let query = format!("SELECT recipes.name, recipes.description, recipes.img_url, importance FROM recipes \
         INNER JOIN recipe_ingredients ON recipes.id = recipe_ingredients.recipe_id \
         INNER JOIN ingredients \
         ON ingredients.id = recipe_ingredients.ingredient_id \
@@ -68,6 +70,7 @@ fn parse_recipes(recipe_result: &Vec<RecipeResult>) -> Vec<Recipe> {
             result.push(Recipe{
                 name: recipe_res.name.clone(),
                 description: recipe_res.description.clone(),
+                img_url: recipe_res.img_url.clone(),
             })
         }
     }
