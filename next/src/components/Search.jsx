@@ -26,8 +26,6 @@ function Search() {
 
         if (data.length > 0) {
             console.log("Recipes found!")
-            console.log(data[0].description.ingredients);
-            recipe.setName(data[0].description.name);
         } else {
             console.log("No Recipe with that Ingredient!") //todo error modal
         }

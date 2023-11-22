@@ -5,12 +5,14 @@ import Link from "next/link";
 
 import food from '@/utils/food_template.jpg';
 import heart from '@/utils/heart.png'
+import {useRecipeContext} from "@/components/Recipe-Provider";
 
 //yellow render warning
 function RecipePreview(props) {
-    const title = "Pilz-Gemüsepaella";
-    const ingredientsFetch = ["Risottoreis", "Zwiebel", "Paprikaschote", "Erbsen", "Lauchzwiebel", "Champignon", "Bohnen"]
 
+    const name = props.name;
+    const ingredientsFetch = props.ingredients;
+    const img = props.image;
     let ingredients = ingredientsFetch[0];
 
     for (let i = 1; i < ingredientsFetch.length; i++) {
@@ -23,11 +25,12 @@ function RecipePreview(props) {
             <div>
                 <div className="card w-96 bg-white shadow-xl m-2">
                     <figure>
-                        <Image src={food} alt="food" priority={true}></Image>
+                        <Image src={img} alt="" width={200} height={150} priority={true}></Image>
+                        {/*<Image src={img} alt="" width={200} height={150} priority={true}></Image>*/}
                     </figure>
                     <div className="card-body">
                         <h2 className="card-title">
-                            {title}
+                            {name}
                             <div className="badge badge-secondary">NEW</div>
                         </h2>
                         <p>{ingredients}</p>
