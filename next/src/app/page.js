@@ -1,6 +1,6 @@
 "use client";
 
-import Preview from "@/components/Test";
+import Preview from "@/components/RecipePreview";
 import React from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
 
@@ -23,7 +23,6 @@ export default function Home() {
     return (
         <div>
             {previews}
-            <div>{recipes.selectedRecipe.name}</div>
         </div>
     );
 }

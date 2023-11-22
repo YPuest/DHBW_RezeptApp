@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { useRecipeContext } from '@/components/Recipe-Provider';
 
-function Search(props) {
+function Search() {
     const [text, setText] = useState('');
+    const recipes = useRecipeContext()
 
     async function handleSearch() {
         //Create array of ingredients
@@ -24,10 +26,8 @@ function Search(props) {
 
         if (data.length > 0) {
             console.log("Recipes found!")
-            /*
             console.log(data[0].description.ingredients);
             recipe.setName(data[0].description.name);
-            */
         } else {
             console.log("No Recipe with that Ingredient!") //todo error modal
         }

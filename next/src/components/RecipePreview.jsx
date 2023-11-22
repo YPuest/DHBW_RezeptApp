@@ -8,39 +8,37 @@ import heart from '@/utils/heart.png'
 
 //yellow render warning
 function RecipePreview(props) {
-    return (
-        <div className="relative mx-2 ms-5">
-            <Link href="/recipe/1">
-                <div className="relative">
-                    <Image
-                        src={food}
-                        alt="home"
-                        width={200}
-                        height={112}
-                        priority={true}
-                        placeholder="blur"
-                        className="rounded-md"
-                    />
-                </div>
-                <div className="flex justify-center font-bold bg-gray-300 rounded-md">Food name daisy</div>
-            </Link>
+    const title = "Pilz-Gemüsepaella";
+    const ingredientsFetch = ["Risottoreis", "Zwiebel", "Paprikaschote", "Erbsen", "Lauchzwiebel", "Champignon", "Bohnen"]
 
-            {!props.isOwn ? (
-                <button
-                    className="absolute top-0 right-0 p-1 hover:scale-125 border-2"
-                    onClick={handleclick}
-                >
-                    <Image
-                        src={heart}
-                        alt="favorite"
-                        width={35}
-                        height={35}
-                        priority={true}
-                    />
-                </button>
-            ):(<></>)
-            }
-        </div>
+    let ingredients = ingredientsFetch[0];
+
+    for (let i = 1; i < ingredientsFetch.length; i++) {
+        if (i != 0) {
+            ingredients = ingredients + ", " + ingredientsFetch[i];
+        }
+    }
+    return (
+        <Link href="/">
+            <div>
+                <div className="card w-96 bg-white shadow-xl m-2">
+                    <figure>
+                        <Image src={food} alt="food" priority={true}></Image>
+                    </figure>
+                    <div className="card-body">
+                        <h2 className="card-title">
+                            {title}
+                            <div className="badge badge-secondary">NEW</div>
+                        </h2>
+                        <p>{ingredients}</p>
+                        <div className="card-actions justify-end">
+                            <div className="badge badge-outline">Easy</div>
+                            <div className="badge badge-outline">30 min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Link>
     );
 }
 
