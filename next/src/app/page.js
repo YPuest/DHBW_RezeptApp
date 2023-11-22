@@ -4,7 +4,7 @@ import Preview from "@/components/RecipePreview";
 import React, { useState, useEffect } from "react";
 
 export default function Home() {
-    const food_categories = ["nudeln", "kartoffeln", "fisch", "hackfleisch", "knoblauch", "parmesan"];
+    const food_categories = ["nudeln", "kartoffeln", "fisch", "hackfleisch", "knoblauch", "eier", "milch", "tomaten"];
     const [previews, setPreviews] = useState([]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function Home() {
                     },
                     body: JSON.stringify({"ingredients": ingredients}),
                 });
-
+                console.log(ingredients)
                 const data = await response.json();
                 console.log(data);
 
@@ -31,6 +31,7 @@ export default function Home() {
                         temp.push(<Preview name={data[i].description.name}
                                            ingredients={data[i].description.ingredients}
                                            image={data[i].img_url}
+                                           index={i}
                                            key={i+""}/>)
                     }
                     setPreviews(temp);

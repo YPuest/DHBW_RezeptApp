@@ -9,19 +9,26 @@ import {useRecipeContext} from "@/components/Recipe-Provider";
 
 //yellow render warning
 function RecipePreview(props) {
+    const recipes = useRecipeContext()
 
     const name = props.name;
     const ingredientsFetch = props.ingredients;
     const img = props.image;
     let ingredients = ingredientsFetch[0];
+    const index = props.index;
 
     for (let i = 1; i < ingredientsFetch.length; i++) {
         if (i != 0) {
             ingredients = ingredients + ", " + ingredientsFetch[i];
         }
     }
+
+    function onClick(){
+        recipes.selectRecipe(index)
+    }
+
     return (
-        <Link href="/">
+        <Link href="/recipe" onClick={onClick}>
             <div>
                 <div className="card w-96 bg-white shadow-xl m-2">
                     <figure>
