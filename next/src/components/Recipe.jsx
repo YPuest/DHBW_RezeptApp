@@ -1,39 +1,35 @@
+"use client"
+
 import React from 'react';
-import Ingredients from "./Ingredients";
-import food from '@/utils/food_template.jpg';
-import Image from "next/image";
+import RecipeIngredients from "./RecipeIngredients";
+import Image from 'next/image';
+import { useRecipeContext } from '@/components/Recipe-Provider';
+import RecipeSteps from "@/components/RecipeSteps";
 
-function Recipe(props) {
-    let name = "Potato";
-    let image = food;
-    let description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
+export default function Recipe(props) {
+    const recipes = useRecipeContext()
 
-    //GetData
+    const name = recipes.selectedRecipe.name;
+    const difficulty = recipes.selectedRecipe.difficulty;
+    const time = recipes.selectedRecipe.time;
+    const ingredients = recipes.selectedRecipe.ingredients;
+    const preparation = recipes.selectedRecipe.preparation;
+    const image = recipes.selectedRecipe.image;
+
+    let prep = [];
+    for (let i = 0; i < preparation.length; i++) {
+        prep.push(<div>Schritt {i+1}</div>)
+    }
 
     return (
-        <div className="flex gap-4 flex-col m-8">
-            <div>Recipe {props.id}{name}</div>
-            <div className="grid gap-4 grid-cols-4">
-                <div className="flex gap-4 flex-col">
-                    <div>
-                        <Image
-                            src={image}
-                            alt="home"
-                            priority={true}
-                            placeholder="blur"
-                            className="rounded-md"
-                        />
-                    </div>
-                    <div>
-                        <Ingredients/>
-                    </div>
-                </div>
-                <div className="col-span-3">
-                    {description}
-                </div>
-            </div>
+        <div>
+            <Image src={image} alt="" width={200} height={150} priority={true}></Image>
+            <div>{name}</div>
+            <div>{difficulty}</div>
+            <div>{time}</div>
+            <RecipeIngredients ingredients={ingredients} />
+            <button className="button_1">Fav</button>
+            <RecipeSteps steps={preparation} />
         </div>
     );
 }
-
-export default Recipe;
