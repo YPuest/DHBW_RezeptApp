@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { useRecipeContext } from '@/components/Recipe-Provider';
 
+//todo umlaute umformen
+
 function Search() {
     const [text, setText] = useState('');
     const recipes = useRecipeContext()
@@ -29,7 +31,7 @@ function Search() {
             console.log(data[0].description.ingredients);
             recipe.setName(data[0].description.name);
         } else {
-            console.log("No Recipe with that Ingredient!") //todo error modal
+            console.log("No Recipe with that RecipeIngredients!") //todo error modal
         }
     }
 

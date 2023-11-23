@@ -1,12 +1,12 @@
 "use client"
 
 import React from 'react';
-import Ingredient from "./Ingredient";
+import RecipeIngredients from "./RecipeIngredients";
 import Image from 'next/image';
-import food from '@/utils/food_template.jpg';
 import { useRecipeContext } from '@/components/Recipe-Provider';
+import RecipeSteps from "@/components/RecipeSteps";
 
-function Recipe(props) {
+export default function Recipe(props) {
     const recipes = useRecipeContext()
 
     const name = recipes.selectedRecipe.name;
@@ -27,15 +27,9 @@ function Recipe(props) {
             <div>{name}</div>
             <div>{difficulty}</div>
             <div>{time}</div>
-            <div>{ingredients}</div>
+            <RecipeIngredients ingredients={ingredients} />
             <button className="button_1">Fav</button>
-
-            <div>{preparation}</div>
-
-
-
+            <RecipeSteps steps={preparation} />
         </div>
     );
 }
-
-export default Recipe;
