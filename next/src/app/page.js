@@ -3,6 +3,7 @@
 import Preview from "@/components/RecipePreview";
 import React from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
+import Sign from "@/components/Sign";
 
 export default function Home() {
     const food_categories = ["Potato", "Pasta", "Fish"] // "Dessert", "Side dishes", "Cocktails"
@@ -23,6 +24,7 @@ export default function Home() {
     return (
         <div>
             {previews}
+            <Sign />
         </div>
     );
 }
