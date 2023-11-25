@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { useRecipeContext } from '@/components/Recipe-Provider';
 
+//todo umlaute umformen
+
 function Search() {
     const [text, setText] = useState('');
     const recipes = useRecipeContext()
@@ -24,10 +26,27 @@ function Search() {
         const data = await response.json();
         console.log(data);
 
+        let temp = [];
+        for (let i = 0; i < data.length; i++) {
+            temp.push({
+                name: data[i].description.name,
+                difficulty: data[i].description.name,
+                time: data[i].description.time,
+                ingredients: data[i].description.ingredients,
+                preparation: data[i].description.preparation,
+                image: data[i].image,
+            })
+        }
+
+        recipes.setRecipes(temp);
+
+        console.log(temp)
+        console.log(recipes.recipes);
+
         if (data.length > 0) {
             console.log("Recipes found!")
         } else {
-            console.log("No Recipe with that Ingredient!") //todo error modal
+            console.log("No Recipe with that RecipeIngredients!") //todo error modal
         }
     }
 

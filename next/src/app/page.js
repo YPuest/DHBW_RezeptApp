@@ -2,11 +2,33 @@
 
 import Preview from "@/components/RecipePreview";
 import React, { useState, useEffect } from "react";
+import { useRecipeContext } from "@/components/Recipe-Provider";
+import Sign from "@/components/Sign";
+import RecipePreview from "@/components/RecipePreview";
 
 export default function Home() {
     const food_categories = ["nudeln", "kartoffeln", "fisch", "hackfleisch", "knoblauch", "eier", "milch", "tomaten"];
     const [previews, setPreviews] = useState([]);
 
+    const recipes = useRecipeContext()
+    useEffect(() => {
+        let temp = [];
+        for (let i = 0; i < recipes.recipes.length; i++) {
+            temp.push(
+                <RecipePreview
+                    name={recipes.recipes[i].name}
+                    ingredients={recipes.recipes[i].ingredients}
+                    image={recipes.recipes[i].image}
+                    index={i}
+                    key={i + ""}
+                />
+            )
+        }
+        setPreviews(temp);
+    },   [recipes]);
+
+
+    {/*
     useEffect(() => {
         async function fetchData() {
             const ingredients = food_categories;
@@ -27,12 +49,12 @@ export default function Home() {
                 if (data.length > 0) {
                     console.log("Recipes found!");
                     let temp = [];
-                    for(let i = 0; i < data.length; i++) {
+                    for (let i = 0; i < data.length; i++) {
                         temp.push(<Preview name={data[i].description.name}
                                            ingredients={data[i].description.ingredients}
                                            image={data[i].img_url}
                                            index={i}
-                                           key={i+""}/>)
+                                           key={i + ""}/>)
                     }
                     setPreviews(temp);
                 } else {
@@ -46,22 +68,12 @@ export default function Home() {
 
         fetchData();
     }, []);
-
-    // old preview generation
-    /*const previews = food_categories.map((category) => (
-        <div key={category}>
-            <div className="flex justify-center mt-10 font-bold text-2xl">{category}</div>
-            <div className="flex justify-center">
-                {[...Array(3)].map((_, i) => (
-                    <Preview key={`${category}-${i}`} />
-                    ))}
-            </div>
-        </div>
-    ));*/
+    */}
 
     return (
         <div className="grid grid-cols-4">
             {previews}
+            <Sign />
         </div>
     );
 }

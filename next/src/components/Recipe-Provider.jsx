@@ -24,7 +24,7 @@ export default function RecipeProvider({ children }) {
             time: '30 minutes',
             ingredients: ['Ingredient1', 'Ingredient2'],
             preparation: ['Step1', 'Step2'],
-            image: "https://imgur.com/dT8vt0u",
+            image: "https://i.imgur.com/WaQ0dMz.png",
         },
         // Add more recipes as needed
     ]);
@@ -38,6 +38,7 @@ export default function RecipeProvider({ children }) {
         selectedRecipeIndex,
         selectedRecipe,
         selectRecipe: (index) => setSelectedRecipeIndex(index),
+        setRecipes,
     };
 
     return (
