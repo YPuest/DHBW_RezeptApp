@@ -34,8 +34,10 @@ function Search() {
                 time: data[i].description.time,
                 ingredients: data[i].description.ingredients,
                 preparation: data[i].description.preparation,
-                image: data[i].image,
+                image: data[i].img_url,
             })
+            console.log("ssdcasd")
+            console.log(data[i].img_url);
         }
 
         recipes.setRecipes(temp);

@@ -1,6 +1,5 @@
 "use client";
 
-import Preview from "@/components/RecipePreview";
 import React, { useState, useEffect } from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
 import Sign from "@/components/Sign";
@@ -11,6 +10,7 @@ export default function Home() {
     const [previews, setPreviews] = useState([]);
 
     const recipes = useRecipeContext()
+
     useEffect(() => {
         let temp = [];
         for (let i = 0; i < recipes.recipes.length; i++) {

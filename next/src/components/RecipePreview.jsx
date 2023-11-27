@@ -32,7 +32,8 @@ function RecipePreview(props) {
             <div>
                 <div className="card w-96 bg-white shadow-xl m-2">
                     <figure>
-                        <Image src={img} alt="" width={200} height={150} priority={true}></Image>
+                        {/*<Image src={img} alt="" width={200} height={150} priority={true}></Image>*/}
+                        <img src={img}></img>
                         {/*<Image src={img} alt="" width={200} height={150} priority={true}></Image>*/}
                     </figure>
                     <div className="card-body">
