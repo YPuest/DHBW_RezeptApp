@@ -1,95 +1,79 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useRecipeContext } from "@/components/Recipe-Provider";
+import Sign from "@/components/Sign";
+import RecipePreview from "@/components/RecipePreview";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    const food_categories = ["nudeln", "kartoffeln", "fisch", "hackfleisch", "knoblauch", "eier", "milch", "tomaten"];
+    const [previews, setPreviews] = useState([]);
+
+    const recipes = useRecipeContext()
+
+    useEffect(() => {
+        let temp = [];
+        for (let i = 0; i < recipes.recipes.length; i++) {
+            temp.push(
+                <RecipePreview
+                    name={recipes.recipes[i].name}
+                    ingredients={recipes.recipes[i].ingredients}
+                    image={recipes.recipes[i].image}
+                    index={i}
+                    key={i + ""}
+                />
+            )
+        }
+        setPreviews(temp);
+    },   [recipes]);
+
+
+    {/*
+    useEffect(() => {
+        async function fetchData() {
+            const ingredients = food_categories;
+
+            try {
+                const response = await fetch('http://142.132.226.214:3010/recipes/get', {
+                    method: "POST",
+                    mode: 'cors',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({"ingredients": ingredients}),
+                });
+                console.log(ingredients)
+                const data = await response.json();
+                console.log(data);
+
+                if (data.length > 0) {
+                    console.log("Recipes found!");
+                    let temp = [];
+                    for (let i = 0; i < data.length; i++) {
+                        temp.push(<Preview name={data[i].description.name}
+                                           ingredients={data[i].description.ingredients}
+                                           image={data[i].img_url}
+                                           index={i}
+                                           key={i + ""}/>)
+                    }
+                    setPreviews(temp);
+                } else {
+                    console.log("No Recipe with that Ingredient!"); // todo error modal
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                // Handle error or show an error modal
+            }
+        }
+
+        fetchData();
+    }, []);
+    */}
+
+    return (
+        <div className="grid grid-cols-4">
+            {previews}
+            <Sign />
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    );
 }
