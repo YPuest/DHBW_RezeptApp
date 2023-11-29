@@ -13,7 +13,7 @@ Gibt für eine Liste aus Zutaten die passenden Rezepte entsprechend der Wichtung
 **POST**
 
 ``
-http://localhost:3010/recipes/get
+http://142.132.226.214:3010/recipes/get
 ``
 
 #### Body
@@ -57,7 +57,7 @@ Legt einen neuen User in der Datenbank an.
 **POST**
 
 ``
-http://localhost:3010/users/create
+http://142.132.226.214:3010/users/create
 ``
 
 #### Body
@@ -95,7 +95,7 @@ Prüft ob Name und Passwort mit einem Nutzer in der Datenbank übereinstimmen.
 **POST**
 
 ``
-http://localhost:3010/users/auth
+http://142.132.226.214:3010/users/auth
 ``
 
 #### Body
