@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="recipe_app@142.132.226.214">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.49">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.50">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -917,8 +917,7 @@ recipe_app|schema||chef||UPDATE|G</Grants>
     </schema>
     <schema id="290" parent="1" name="recipe_app">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-11-22.18:42:27</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-22.17:42:26</LocalIntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-11-22.17:42:26</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="291" parent="1" name="chef"/>

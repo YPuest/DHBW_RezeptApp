@@ -19,7 +19,7 @@ pub struct User {
     pass: String,
 }
 
-pub async fn create_user(pool: &MySqlPool, user: &User) -> Result<(), anyhow::Error> {
+pub async fn create_user(pool: &MySqlPool, user: &User) -> Result<(), sqlx::Error> {
     let salt = SaltString::generate(&mut OsRng);
     let hashed_password = Argon2::default().hash_password(&user.pass.as_bytes(), &salt).unwrap().to_string();
 

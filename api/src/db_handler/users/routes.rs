@@ -13,8 +13,13 @@ pub async fn handle_create_user(Extension(pool): Extension<MySqlPool>, Json(user
     match create_user(&pool, &user).await {
         Ok(()) => (StatusCode::OK).into_response(),
         Err(e) => {
-            println!("Error creating user: {}", e.to_string());
-            StatusCode::INTERNAL_SERVER_ERROR.into_response()
+            if e.as_database_error().unwrap().is_unique_violation() {
+                println!("Error creating user: {}", e.to_string());
+                StatusCode::BAD_REQUEST.into_response()
+            } else {
+                println!("Error creating user: {}", e.to_string());
+                StatusCode::INTERNAL_SERVER_ERROR.into_response()
+            }
         }
     }
 }
