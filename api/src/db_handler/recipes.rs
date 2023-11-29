@@ -1,4 +1,6 @@
-use std::collections::{HashMap};
+use std::collections::{HashMap, HashSet};
+use std::hash::{Hash, Hasher};
+use axum::Json;
 use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, MySqlPool, query_as};
 use sqlx::types::{JsonValue};
@@ -13,7 +15,7 @@ pub struct Recipe {
 }
 
 #[derive(Debug, Serialize, Deserialize, FromRow)]
-pub struct RecipeResult {
+pub struct RecipeDbResult {
     name: String,
     description: JsonValue,
     img_url: String,
@@ -41,9 +43,9 @@ pub async fn get_recipes_from_ingredients(pool: &MySqlPool, mut ingredients: Vec
         INNER JOIN recipe_ingredients ON recipes.id = recipe_ingredients.recipe_id \
         INNER JOIN ingredients \
         ON ingredients.id = recipe_ingredients.ingredient_id \
-        WHERE {} ORDER BY recipes.name", filter);
+        WHERE {} ORDER BY recipes.importance", filter);
 
-    let recipes = query_as::<_, RecipeResult>(&query)
+    let recipes = query_as::<_, RecipeDbResult>(&query)
         .fetch_all(pool)
         .await?;
 
@@ -51,7 +53,7 @@ pub async fn get_recipes_from_ingredients(pool: &MySqlPool, mut ingredients: Vec
     Ok(weighted_recipes)
 }
 
-fn parse_recipes(recipe_result: &Vec<RecipeResult>) -> Vec<Recipe> {
+fn parse_recipes(recipe_result: &Vec<RecipeDbResult>) -> Vec<Recipe> {
     let mut recipes = HashMap::new();
 
     for result in recipe_result.iter() {
