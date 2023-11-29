@@ -1,4 +1,4 @@
-use axum::{Extension, Router, routing::{post}, ServiceExt};
+use axum::{Extension, Router, ServiceExt};
 use tower::ServiceBuilder;
 use crate::db_handler::get_connection_pool;
 
