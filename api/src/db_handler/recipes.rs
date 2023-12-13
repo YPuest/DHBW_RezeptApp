@@ -42,7 +42,7 @@ pub async fn get_recipes_from_ingredients(pool: &MySqlPool, mut ingredients: Vec
         INNER JOIN recipe_ingredients ON recipes.id = recipe_ingredients.recipe_id \
         INNER JOIN ingredients \
         ON ingredients.id = recipe_ingredients.ingredient_id \
-        WHERE {} ORDER BY recipes.importance", filter);
+        WHERE {} ORDER BY importance", filter);
 
     let recipes = query_as::<_, RecipeEntry>(&query)
         .fetch_all(pool)
