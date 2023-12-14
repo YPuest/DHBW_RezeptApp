@@ -1,18 +1,89 @@
 import React, {useState} from 'react';
 import { useRecipeContext } from '@/components/Recipe-Provider';
 
-//todo umlaute umformen
-
 function Search() {
     const [text, setText] = useState('');
     const recipes = useRecipeContext()
 
     async function handleSearch() {
         //Create array of ingredients
-        let inputs = text.toLowerCase();
-        inputs = inputs.replaceAll(" ", "");
-        const ingredients = inputs.split(",");
-        console.log(JSON.stringify({"ingredients": ingredients}));
+        let ingredients
+        if(text.length === 0) {
+            ingredients = [
+                "nudeln",
+                "ei",
+                "speck",
+                "kaese",
+                "hackfleisch",
+                "tomatensauce",
+                "zwiebel",
+                "knoblauch",
+                "pesto",
+                "parmesan",
+                "olivenoel",
+                "peperoncino",
+                "petersilie",
+                "sahne",
+                "butter",
+                "lasagneblaetter",
+                "spinat",
+                "ricotta",
+                "mozzarella",
+                "haehnchenbrust",
+                "kokosmilch",
+                "currypaste",
+                "gemuese",
+                "reis",
+                "lachsfilet",
+                "zitrone",
+                "dill",
+                "kartoffeln",
+                "rindfleisch_ravioli",
+                "paprika",
+                "zucchini",
+                "marinade",
+                "tomaten",
+                "frisches_basilikum",
+                "gemischtes_gemuese",
+                "basmatireis",
+                "blaetterteig",
+                "feta",
+                "milch",
+                "quinoa",
+                "gebratenes_gemuese",
+                "avocado",
+                "hummus",
+                "rote_linsen",
+                "gewuerze",
+                "vollkornnudeln",
+                "basilikum",
+                "karotten",
+                "kirschtomaten",
+                "mandeln",
+                "balsamico",
+                "aubergine",
+                "couscous",
+                "gurke",
+                "camembert",
+                "paniermehl",
+                "preiselbeersauce",
+                "cherrytomaten",
+                "kichererbsen",
+                "suesskartoffel",
+                "vollkornbrot",
+                "kresse",
+                "linsen",
+                "gemuesebruehe",
+                "sellerie",
+                "paella_reis",
+                "erbsen"
+            ];
+        } else {
+            let inputs = text.toLowerCase();
+            inputs = inputs.replaceAll(" ", "");
+            ingredients = inputs.split(",");
+        }
+
 
         const response = await fetch('http://142.132.226.214:3010/recipes/get', {
             method: "POST",
@@ -36,7 +107,6 @@ function Search() {
                 preparation: data[i].description.preparation,
                 image: data[i].img_url,
             })
-            console.log("ssdcasd")
             console.log(data[i].img_url);
         }
 

@@ -14,6 +14,8 @@ function RecipePreview(props) {
     const name = props.name;
     const ingredientsFetch = props.ingredients;
     const img = props.image;
+    const difficulty = props.difficulty;
+    const time = props.time;
     let ingredients = ingredientsFetch[0];
     const index = props.index;
 
@@ -27,24 +29,24 @@ function RecipePreview(props) {
         recipes.selectRecipe(index)
     }
 
+    let randomBinary = Math.round(Math.random());
+
     return (
-        <Link href="/recipe" onClick={onClick}>
+        <Link href="/recipe" onClick={onClick} className="">
             <div>
-                <div className="card w-96 bg-white shadow-xl m-2">
+                <div className="card w-96 h-96 h-42 bg-white shadow-xl m-2">
                     <figure>
-                        {/*<Image src={img} alt="" width={200} height={150} priority={true}></Image>*/}
-                        <img src={img}></img>
-                        {/*<Image src={img} alt="" width={200} height={150} priority={true}></Image>*/}
+                        <img src={img} className=""></img>
                     </figure>
                     <div className="card-body">
                         <h2 className="card-title">
                             {name}
-                            <div className="badge badge-secondary">NEW</div>
+                            {randomBinary ? (<div className="badge badge-secondary">NEW</div>) : (<></>)}
                         </h2>
                         <p>{ingredients}</p>
                         <div className="card-actions justify-end">
-                            <div className="badge badge-outline">Easy</div>
-                            <div className="badge badge-outline">30 min</div>
+                            <div className="badge badge-outline">{difficulty}</div>
+                            <div className="badge badge-outline">{time}</div>
                         </div>
                     </div>
                 </div>

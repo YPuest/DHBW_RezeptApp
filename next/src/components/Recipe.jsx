@@ -22,13 +22,16 @@ export default function Recipe(props) {
     }
 
     return (
-        <div>
-            <Image src={image} alt="" width={200} height={150} priority={true}></Image>
-            <div>{name}</div>
-            <div>{difficulty}</div>
-            <div>{time}</div>
+        <div className="ml-2">
+            <Image src={image} alt="" width={200} height={150} priority={true} className="rounded mr-2"></Image>
+            <div className="flex">
+            <div className="text-2xl mb-2 br-2 mr-2">{name}</div>
+            <button className="h-8 text-start g-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded"
+            >Merken</button>
+            </div>
+            <div className="">Schwierigkeit: {difficulty}</div>
+            <div>Dauer: {time}</div>
             <RecipeIngredients ingredients={ingredients} />
-            <button className="button_1">Fav</button>
             <RecipeSteps steps={preparation} />
         </div>
     );

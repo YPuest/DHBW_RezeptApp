@@ -8,8 +8,9 @@ export default function RecipeIngredients(props) {
     }
 
     return (
-        <div>
-            {ingredients}
+        <div className="mb-2 mt-2">
+            <div className="text-lg underline">Zutaten:</div>
+            <div>{ingredients}</div>
         </div>
     );
 }
