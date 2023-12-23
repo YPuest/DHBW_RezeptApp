@@ -17,8 +17,6 @@ function Navbar() {
         setIsDelete(true);
     }
 
-
-
     return (
         <div className="flex items-center justify-between mx-auto my-2">
             <Link href='/' className='ml-5'>RezeptApp</Link>
@@ -40,7 +38,8 @@ function Navbar() {
                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                     <li><button onClick={handleLogin} >Sign In</button></li>
                     <li><button onClick={handleLogin} >Register</button></li>
-                </ul>
+                    {/*<button className="btn" onClick={()=>document.getElementById('my_modal_3').showModal()}>Sign-In</button>
+                */}</ul>
                 )}
             </div>
         </div>

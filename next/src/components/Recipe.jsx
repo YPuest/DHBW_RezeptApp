@@ -3,9 +3,8 @@
 import React from 'react';
 import RecipeIngredients from "./RecipeIngredients";
 import Image from 'next/image';
-import {useRecipeContext} from '@/components/Recipe-Provider';
+import { useRecipeContext } from '@/components/Recipe-Provider';
 import RecipeSteps from "@/components/RecipeSteps";
-
 
 export default function Recipe(props) {
     const recipes = useRecipeContext()
@@ -23,22 +22,17 @@ export default function Recipe(props) {
     }
 
     return (
-
-        <div className="flex gap-4 flex-col m-8 text-base/8">
-            <div className="grid gap-6 grid-cols-4">
-                <div className="flex gap-4 flex-col">
-                    <Image src={image} alt="" width={200} height={150} priority={true}></Image>
-                    <div className="text-2xl fond-semibold">{name}</div>
-                    <div>{difficulty}</div>
-                    <div>{time}</div>
-                    <RecipeIngredients ingredients={ingredients}/>
-                </div>
-                <button className="button_1">Fav</button>
-                <div className="flex gap-4 flex-col col-span-3">
-                    <div className="text-xl">Zubereitung</div>
-                    <RecipeSteps steps={preparation}/>
-                </div>
+        <div className="ml-2">
+            <Image src={image} alt="" width={200} height={150} priority={true} className="rounded mr-2"></Image>
+            <div className="flex">
+            <div className="text-2xl mb-2 br-2 mr-2">{name}</div>
+            <button className="h-8 text-start g-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded"
+            >Merken</button>
             </div>
+            <div className="">Schwierigkeit: {difficulty}</div>
+            <div>Dauer: {time}</div>
+            <RecipeIngredients ingredients={ingredients} />
+            <RecipeSteps steps={preparation} />
         </div>
     );
 }
