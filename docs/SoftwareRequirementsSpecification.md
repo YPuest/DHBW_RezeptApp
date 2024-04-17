@@ -49,6 +49,7 @@ Als User möchte ich gefundene Rezepte speichern, um sie leichter wieder zu find
 
 #### 2.2.4 Neue Rezepte speichern
 Als User möchte ich eigene Rezepte hinzufügen, um das vorhandene Sortiment zu ergänzen.
+
 ![](https://i.imgur.com/veVPDn8.png)
 ##### Aktivitätsdiagramm
 ![](https://i.imgur.com/5MLmKK0.png)
@@ -78,19 +79,22 @@ Der RecipeContainer (Dashboard) bekommt vom Backend ein Array aus Recipes im JSO
 
 ### 3.1 Benutzerfreundlichkeit 
 
-Wir möchten eine einfache und selbsterklärende Webapp gestalten. Die App soll nicht mit Informationen überladen werden. Die meisten Funktionen werden daher mit Piktogrammen gestaltet, um unnötigen Text zuvermeiden. Z. B. wird an jedes Rezept ein "Herz"-Button angeheftet, um so Rezepte zu speichern, um sie schneller wieder zufinden.
+Wir möchten eine einfache und selbsterklärende Webapp gestalten. Die App soll nicht mit Informationen überladen werden. Die meisten Funktionen werden daher mit Piktogrammen gestaltet, um unnötigen Text zu vermeiden. Z. B. wird an jedes Rezept ein "Herz"-Button angeheftet, um so Rezepte zu speichern, um sie schneller wiederzufinden.
 Die dazugehörigen User-Storys finden Sie hier:
-(Link einfügen)
+https://github.com/YPuest/DHBW_RezeptApp/blob/master/docs/SoftwareRequirementsSpecification.md#22-user-stories
 
 Die Rezepte werden nur mit einem Titelbild und der Überschrift angezeigt. Wenn mit der Maus darüber gehovert wird, öffnet sich eine Übersicht, über alle Zutaten. So kann man sich schnell einen Überblick über die noch fehlenden Zutaten zu verschaffen. Durch diese Funktion bleibt die Hauptseite einheitlich gestaltet und ist nicht überladen mit jeglichen Informationen zum Rezept. 
 Die dazugehörige User-Storys finden Sie hier.
-(Link einfügen)
+https://github.com/YPuest/DHBW_RezeptApp/blob/master/docs/SoftwareRequirementsSpecification.md#222-rezept-abrufen
 
 ### 3.2 Flexibilität
 
-Um ein gutes Benutzererlebnis sicher zu stellen, wird stark auf die Flexibilität unserer Rezeptapp geachtet. Die Kunden sollen Rezepte einfügen und jederzeit bearbeiten können. Daher muss unsere Software dementsprechend ausgelegt sein.  
-User-Storys:
+Um ein gutes Benutzererlebnis sicherzustellen, wird stark auf die Flexibilität unserer Rezeptapp geachtet. Die Kunden sollen Rezepte einfügen und jederzeit bearbeiten können. Daher muss unsere Software dementsprechend ausgelegt sein.  
+User-Storys: https://github.com/YPuest/DHBW_RezeptApp/blob/master/docs/SoftwareRequirementsSpecification.md#223-rezepte-merken
 ## 4. Technische Einschränkungen
 > Geben Sie alle wichtigen Einschränkungen, Annahmen oder Abhängigkeiten an, z. B. alle Einschränkungen darüber, welcher Servertyp verwendet werden soll, welche Art von Open-Source-Lizenz eingehalten werden muss usw.
 
-Mögliche Nichtskönner in unserem Team können uns einschränken. 
+Es können designtechnische Unterschiede entstehen für verschiedene Browser oder unterschiedliche Betriebssysteme, die wir nicht beeinflussen können.
+
+Features müssen möglicherweise durch Sicherheitsanforderungen angepasst werden. Des Weiteren muss die Datenbank für die persönlichen Daten der Nutzer besondere Sicherheitsanforderungen erfüllen.
+
