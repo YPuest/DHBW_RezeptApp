@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 .idea
-=======
-/.obsidian
->>>>>>> c8a2cf64ee80a142212054c12b57e9eeb8c0ec09
+.DS_Store
+.obsidian
+
+/docs/.DS_Store
