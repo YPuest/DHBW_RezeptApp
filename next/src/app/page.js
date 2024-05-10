@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
-import Sign from "@/components/Sign";
 import RecipePreview from "@/components/RecipePreview";
 
 export default function Home() {
@@ -73,7 +72,6 @@ export default function Home() {
     return (
         <div className="grid grid-cols-4">
             {previews}
-            <Sign />
         </div>
     );
 }
