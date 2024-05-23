@@ -15,7 +15,6 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body className={inter.className}>
       <RecipeProvider>
-          <Navbar/>
         {children}
       </RecipeProvider>
       </body>

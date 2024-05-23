@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
 import RecipePreview from "@/components/RecipePreview";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
     const food_categories = ["nudeln", "kartoffeln", "fisch", "hackfleisch", "knoblauch", "eier", "milch", "tomaten"];
@@ -70,8 +71,11 @@ export default function Home() {
     */}
 
     return (
+        <>
+        <Navbar/>
         <div className="grid grid-cols-4">
             {previews}
         </div>
+        </>
     );
 }

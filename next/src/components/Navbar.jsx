@@ -2,26 +2,12 @@
 
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import DeleteAccount from "@/components/DeleteAccount";
 import Search from "@/components/Search";
 import { deleteCookie } from 'cookies-next';
 import { getCookie } from 'cookies-next';
 
 function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isDelete, setIsDelete] = useState(false);
-
-    function handleLogin() {
-        setIsLoggedIn(!isLoggedIn);
-    }
-
-    function handleLogin() {
-        setIsLoggedIn(!isLoggedIn);
-    }
-
-    function handleDelete() {
-        setIsDelete(true);
-    }
 
     useEffect(() => {
         if(getCookie('loggedIn')) {

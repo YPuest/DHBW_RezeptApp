@@ -41,7 +41,7 @@ const Register = () => {
               router.refresh();
             } else if (response.status === 400) {
               setShowAlert(true);
-              setAlertText("User existiert bereits, kein neuer User angelegt");
+              setAlertText("User existiert bereits");
             } else {
               setShowAlert(true);
               setAlertText("Interner Serverfehler, siehe Log. Not 400");
@@ -49,7 +49,7 @@ const Register = () => {
           })
           .catch((error) => {
             setShowAlert(true);
-            setAlertText("User existiert bereits, kein neuer User angelegt");
+            setAlertText("User existiert bereits");
             console.error("Error:", error);
           });
     }
