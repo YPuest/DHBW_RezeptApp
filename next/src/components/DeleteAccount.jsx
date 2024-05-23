@@ -4,10 +4,12 @@ import {useState} from "react";
 export default function DeleteAccount(props) {
   
     function handleCancel() {
+        console.log("Click Cancel...")
         props.setIsDelete(false);
     }
 
     function handleDelete() {
+        console.log("Click Delete...");
         props.setIsDelete(false);
         props.setIsLoggedIn(false);
     }

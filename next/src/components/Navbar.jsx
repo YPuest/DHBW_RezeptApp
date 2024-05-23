@@ -15,6 +15,10 @@ function Navbar() {
         setIsLoggedIn(!isLoggedIn);
     }
 
+    function handleLogin() {
+        setIsLoggedIn(!isLoggedIn);
+    }
+
     function handleDelete() {
         setIsDelete(true);
     }
