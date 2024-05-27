@@ -71,7 +71,7 @@ function Search() {
                 </div>
             </div>
             <div className="indicator">
-                <button className="btn join-item" onClick={handleSearch}>Search</button>
+                <button className="btn join-item" style={{ backgroundColor: "#4CAF50", color: "#fff" }} onClick={handleSearch}>Search</button>
             </div>
         </div>
     );

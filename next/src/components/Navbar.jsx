@@ -1,41 +1,47 @@
 "use client";
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import Search from "@/components/Search";
 import { deleteCookie } from 'cookies-next';
 import { getCookie } from 'cookies-next';
+import Image from 'next/image';
 
 function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        if(getCookie('loggedIn')) {
+        if (getCookie('loggedIn')) {
             setIsLoggedIn(true)
         }
-    })
+    }, []);
 
     return (
         <div className="flex items-center justify-between mx-auto my-2">
-            <Link href='/' className='ml-5'>RezeptApp</Link>
-
+            <Link href='/' className='flex items-center ml-5'>
+                <Image src="/images/logo.png" alt="Logo with name" width={40} height={40} className="mr-2" />
+                <span className="text-xl font-bold font-mono">RezeptApp</span>
+            </Link>
             <Search />
 
             <div className="dropdown dropdown-bottom dropdown-end">
-                <label tabIndex={0} className="btn m-1">Profile</label>
+                <label tabIndex={0} className="btn m-1" style={{ backgroundColor: "#4CAF50", color: "#fff" }}>Profil</label>
 
-                {(isLoggedIn) ? (
+                {isLoggedIn ? (
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link href='/profile/favorites' >Favorites</Link></li>
-                        <li><button onClick={()=> {deleteCookie("loggedIn");
-                            setIsLoggedIn(false);
-                        }}>Logout</button></li>
+                        <li><Link href='/profile/favorites'>Favorites</Link></li>
+                        <li>
+                            <button onClick={() => {
+                                deleteCookie("loggedIn");
+                                setIsLoggedIn(false);
+                            }}>Logout</button>
+                        </li>
                     </ul>
-                ): (
-                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><Link href="/profile/login" >Login</Link></li>
-                    <li><Link href="/profile/register" >Register</Link></li>
-                </ul>
+                ) : (
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><Link href="/profile/login">Login</Link></li>
+                        <li><Link href="/profile/register">Register</Link></li>
+                    </ul>
                 )}
             </div>
         </div>

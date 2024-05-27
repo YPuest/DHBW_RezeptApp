@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Alert from "@/components/Alert";
+import Logo from "@/components/Logo"; // Ensure the correct path is used
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +24,7 @@ const Register = () => {
       setShowAlert(true);
       setAlertText("Die Passwörter stimmen nicht überein");
     } else {
-      // API-Anruf
+      // API call
       fetch("http://142.132.226.214:3010/users/create", {
         method: "POST",
         headers: {
@@ -37,7 +38,7 @@ const Register = () => {
           .then((response) => {
             if (response.ok) {
               setCookie("loggedIn", true);
-              router.push("/"); // Nach erfolgreicher Registrierung zur Startseite weiterleiten
+              router.push("/"); // Redirect to home page after successful registration
               router.refresh();
             } else if (response.status === 400) {
               setShowAlert(true);
@@ -63,6 +64,9 @@ const Register = () => {
 
   return (
       <div className="h-screen flex flex-col justify-center items-center">
+        <div className="mb-12">
+          <Logo width={40} height={40} />
+        </div>
         <div className="w-full max-w-xs mx-auto">
           {/* Username Input */}
           <label className="input input-bordered flex items-center gap-2 mb-4">
@@ -131,13 +135,14 @@ const Register = () => {
 
           {/* Register Button */}
           <button
-              className="btn btn-primary w-full mb-4"
+              className="btn w-full mb-4"
+              style={{ backgroundColor: "#4CAF50", color: "#fff" }} // Green color from the logo
               onClick={handleRegister}
           >
             Registrieren
           </button>
 
-          {/* Register Link */}
+          {/* Login Link */}
           <div className="text-center mb-4">
             <span>Schon einen Account? </span>
             <a
