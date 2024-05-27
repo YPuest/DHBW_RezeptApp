@@ -30,13 +30,12 @@ function Search() {
         for (let i = 0; i < data.length; i++) {
             temp.push({
                 name: data[i].description.name,
-                difficulty: data[i].description.name,
+                difficulty: data[i].description.difficulty,
                 time: data[i].description.time,
                 ingredients: data[i].description.ingredients,
                 preparation: data[i].description.preparation,
                 image: data[i].img_url,
             })
-            console.log("ssdcasd")
             console.log(data[i].img_url);
         }
 

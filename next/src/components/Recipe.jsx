@@ -25,7 +25,7 @@ export default function Recipe(props) {
     }
 
     return (
-        <div className="flex items-center bg-gray-100">
+        <div className="flex items-center">
             <div className="w-full max-w-4xl p-4 min-h-screen">
                 <div className="flex flex-wrap items-center">
                     <div className="w-full sm:w-1/2 p-4">

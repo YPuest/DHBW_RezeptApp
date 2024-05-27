@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import Search from "@/components/Search";
@@ -9,10 +8,18 @@ import Image from 'next/image';
 
 function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
 
     useEffect(() => {
         if (getCookie('loggedIn')) {
-            setIsLoggedIn(true)
+            setIsLoggedIn(true);
+        }
+
+        // Überprüfen, ob sich die Anwendung auf der Startseite befindet
+        if (window.location.pathname === '/') {
+            setShowSearch(true);
+        } else {
+            setShowSearch(false);
         }
     }, []);
 
@@ -27,7 +34,9 @@ function Navbar() {
                 <Image src="/images/logo.png" alt="Logo with name" width={40} height={40} className="mr-2" />
                 <span className="text-xl font-bold font-mono">RezeptApp</span>
             </Link>
-            <Search />
+            {showSearch ? (
+                <Search />
+            ): (<></>)}
 
             <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0} className="btn m-1" style={{ backgroundColor: "#4CAF50", color: "#fff" }}>Profil</label>
