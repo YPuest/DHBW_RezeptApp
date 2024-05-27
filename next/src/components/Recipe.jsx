@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import React from 'react';
 import RecipeIngredients from "./RecipeIngredients";
 import Image from 'next/image';
@@ -7,7 +6,7 @@ import { useRecipeContext } from '@/components/Recipe-Provider';
 import RecipeSteps from "@/components/RecipeSteps";
 
 export default function Recipe(props) {
-    const recipes = useRecipeContext()
+    const recipes = useRecipeContext();
 
     const name = recipes.selectedRecipe.name;
     const difficulty = recipes.selectedRecipe.difficulty;
@@ -18,18 +17,39 @@ export default function Recipe(props) {
 
     let prep = [];
     for (let i = 0; i < preparation.length; i++) {
-        prep.push(<div>Schritt {i+1}</div>)
+        prep.push(<div key={i}>Schritt {i + 1}</div>);
+    }
+
+    function handleFavorite() {
+        console.log("todo") //todo
     }
 
     return (
-        <div>
-            <Image src={image} alt="" width={200} height={150} priority={true}></Image>
-            <div>{name}</div>
-            <div>{difficulty}</div>
-            <div>{time}</div>
-            <RecipeIngredients ingredients={ingredients} />
-            <button className="button_1">Fav</button>
-            <RecipeSteps steps={preparation} />
+        <div className="flex items-center bg-gray-100">
+            <div className="w-full max-w-4xl p-4 min-h-screen">
+                <div className="flex flex-wrap items-center">
+                    <div className="w-full sm:w-1/2 p-4">
+                        <Image src={image} alt={name} width={400} height={300} className="rounded-lg" priority={true} />
+                    </div>
+                    <div className="w-full sm:w-1/2 p-4">
+                        <h1 className="text-3xl font-bold mb-2">{name}</h1>
+                        <div className="text-lg text-gray-700 mb-4">
+                            <span className="font-semibold">Schwierigkeit: </span>{difficulty}
+                        </div>
+                        <div className="text-lg text-gray-700 mb-4">
+                            <span className="font-semibold">Zeit: </span>{time}
+                        </div>
+                        <button
+                            className="btn w-full mb-4"
+                            style={{backgroundColor: "#4CAF50", color: "#fff"}}
+                            onClick={handleFavorite}
+                        >
+                            Favorisieren
+                        </button>
+                    </div>
+                </div>
+                <RecipeSteps steps={preparation}/>
+            </div>
         </div>
     );
 }

@@ -16,9 +16,14 @@ function Navbar() {
         }
     }, []);
 
+    const handleLogoClick = (e) => {
+        e.preventDefault();
+        window.location.reload();
+    };
+
     return (
         <div className="flex items-center justify-between mx-auto my-2">
-            <Link href='/' className='flex items-center ml-5'>
+            <Link href='/' className='flex items-center ml-5' onClick={handleLogoClick}>
                 <Image src="/images/logo.png" alt="Logo with name" width={40} height={40} className="mr-2" />
                 <span className="text-xl font-bold font-mono">RezeptApp</span>
             </Link>
