@@ -27,7 +27,6 @@ export default function Home() {
         setPreviews(temp);
     },   [recipes]);
 
-
     {/*
     useEffect(() => {
         async function fetchData() {
