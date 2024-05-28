@@ -6,20 +6,12 @@ import { deleteCookie } from 'cookies-next';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 
-function Navbar() {
+function Navbar({ onSearch }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [showSearch, setShowSearch] = useState(false);
 
     useEffect(() => {
         if (getCookie('loggedIn')) {
             setIsLoggedIn(true);
-        }
-
-        // Überprüfen, ob sich die Anwendung auf der Startseite befindet
-        if (window.location.pathname === '/') {
-            setShowSearch(true);
-        } else {
-            setShowSearch(false);
         }
     }, []);
 
@@ -34,9 +26,7 @@ function Navbar() {
                 <Image src="/images/logo.png" alt="Logo with name" width={40} height={40} className="mr-2" />
                 <span className="text-xl font-bold font-mono">RezeptApp</span>
             </Link>
-            {showSearch ? (
-                <Search />
-            ): (<></>)}
+            <Search onSearch={onSearch} />
 
             <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0} className="btn m-1" style={{ backgroundColor: "#4CAF50", color: "#fff" }}>Profil</label>
