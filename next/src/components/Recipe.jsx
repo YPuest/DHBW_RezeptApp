@@ -24,9 +24,22 @@ export default function Recipe(props) {
         console.log("todo") //todo
     }
 
+    function handleBack() {
+        window.history.back();
+    }
+
     return (
         <div className="flex items-center">
             <div className="w-full max-w-4xl p-4 min-h-screen">
+                <div className="flex justify-between items-center mb-4">
+                    <button
+                        className="btn"
+                        style={{backgroundColor: "#4CAF50", color: "#fff"}}
+                        onClick={handleBack}
+                    >
+                        Zurück
+                    </button>
+                </div>
                 <div className="flex flex-wrap items-center">
                     <div className="w-full sm:w-1/2 p-4">
                         <Image src={image} alt={name} width={400} height={300} className="rounded-lg" priority={true} />
