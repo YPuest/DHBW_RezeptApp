@@ -18,6 +18,8 @@ export default function Home() {
                 <RecipePreview
                     name={recipes.recipes[i].name}
                     ingredients={recipes.recipes[i].ingredients}
+                    difficulty={recipes.recipes[i].difficulty}
+                    time={recipes.recipes[i].time}
                     image={recipes.recipes[i].image}
                     index={i}
                     key={i + ""}

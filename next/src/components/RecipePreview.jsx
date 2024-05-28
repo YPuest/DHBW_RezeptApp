@@ -14,6 +14,8 @@ function RecipePreview(props) {
     const name = props.name;
     const ingredientsFetch = props.ingredients;
     const img = props.image;
+    const difficulty = props.difficulty;
+    const time = props.time;
     let ingredients = ingredientsFetch[0];
     const index = props.index;
 
@@ -43,8 +45,8 @@ function RecipePreview(props) {
                         </h2>
                         <p>{ingredients}</p>
                         <div className="card-actions justify-end">
-                            <div className="badge badge-outline">Easy</div>
-                            <div className="badge badge-outline">30 min</div>
+                            <div className="badge badge-outline">{difficulty}</div>
+                            <div className="badge badge-outline">{time}</div>
                         </div>
                     </div>
                 </div>

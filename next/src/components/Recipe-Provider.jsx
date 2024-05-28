@@ -26,7 +26,6 @@ export default function RecipeProvider({ children }) {
             preparation: ['Step1', 'Step2'],
             image: "https://i.imgur.com/WaQ0dMz.png",
         },
-        // Add more recipes as needed
     ]);
 
     const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(0);
