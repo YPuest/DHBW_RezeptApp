@@ -20,6 +20,12 @@ function Navbar({ onSearch }) {
         window.location.reload();
     };
 
+    const handleLogout = () => {
+        deleteCookie('loggedIn');
+        setIsLoggedIn(false);
+        window.location.reload(); // Page reload
+    };
+
     return (
         <div className="flex items-center justify-between mx-auto my-2">
             <Link href='/' className='flex items-center ml-5' onClick={handleLogoClick}>
@@ -35,10 +41,7 @@ function Navbar({ onSearch }) {
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link href='/profile/favorites'>Favorites</Link></li>
                         <li>
-                            <button onClick={() => {
-                                deleteCookie("loggedIn");
-                                setIsLoggedIn(false);
-                            }}>Logout</button>
+                            <button onClick={handleLogout}>Logout</button>
                         </li>
                     </ul>
                 ) : (
