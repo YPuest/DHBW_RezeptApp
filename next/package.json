@@ -21,5 +21,9 @@
     "@types/react": "18.2.36",
     "daisyui": "^3.9.4",
     "typescript": "5.2.2"
+  },
+    "scripts": {
+    "build": "webpack --mode production",
+    "test": "jest"
   }
 }
