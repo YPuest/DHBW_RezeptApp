@@ -4,24 +4,33 @@ import RecipeIngredients from "./RecipeIngredients";
 import Image from 'next/image';
 import { useRecipeContext } from '@/components/Recipe-Provider';
 import RecipeSteps from "@/components/RecipeSteps";
+import {redirect} from "next/navigation";
 
 export default function Recipe(props) {
-    const recipes = useRecipeContext();
+    const { selectedRecipe } = useRecipeContext();
 
-    const name = recipes.selectedRecipe.name;
-    const difficulty = recipes.selectedRecipe.difficulty;
-    const time = recipes.selectedRecipe.time;
-    const ingredients = recipes.selectedRecipe.ingredients;
-    const preparation = recipes.selectedRecipe.preparation;
-    const image = recipes.selectedRecipe.image;
+    console.log("SRRR")
+    console.log(selectedRecipe);
+
+    if (!selectedRecipe) {
+        redirect('/');
+        return <div>Loading...</div>;
+    }
+
+    const { name, difficulty, time, ingredients, preparation, im } = selectedRecipe.description;
+    const { img_url } = selectedRecipe;
+
+    //const {image} = 0;
 
     let prep = [];
-    for (let i = 0; i < preparation.length; i++) {
-        prep.push(<div key={i}>Schritt {i + 1}</div>);
+    if (preparation) {
+        for (let i = 0; i < preparation.length; i++) {
+            prep.push(<div key={i}>Schritt {i + 1}</div>);
+        }
     }
 
     function handleFavorite() {
-        console.log("todo") //todo
+        console.log("todo"); //todo
     }
 
     function handleBack() {
@@ -42,7 +51,7 @@ export default function Recipe(props) {
                 </div>
                 <div className="flex flex-wrap items-center">
                     <div className="w-full sm:w-1/2 p-4">
-                        <Image src={image} alt={name} width={400} height={300} className="rounded-lg" priority={true} />
+                        <Image src={img_url} alt={name} width={400} height={300} className="rounded-lg" priority={true} />
                     </div>
                     <div className="w-full sm:w-1/2 p-4">
                         <h1 className="text-3xl font-bold mb-2">{name}</h1>
@@ -61,7 +70,7 @@ export default function Recipe(props) {
                         </button>
                     </div>
                 </div>
-                <RecipeSteps steps={preparation}/>
+                {preparation && <RecipeSteps steps={preparation} />}
             </div>
         </div>
     );

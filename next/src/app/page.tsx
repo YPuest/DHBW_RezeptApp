@@ -14,28 +14,44 @@ export default function Home() {
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
 
-    const recipes = useRecipeContext();
+    const { recipes, setRecipes } = useRecipeContext();
+
+    useEffect(() => {
+        // Fetch recipes from API
+        const fetchRecipes = async () => {
+            const response = await fetch('http://142.132.226.214:3010/recipes/get', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "ingredients": ["hackfleisch", "nudeln", "reis", "käse", "tomate", "tomaten"] }),
+            });
+
+            const data = await response.json();
+            setRecipes(data);
+        };
+
+        fetchRecipes();
+    }, [setRecipes]);
 
     useEffect(() => {
         let suggestions = [];
         let recommended = [];
         let popular = [];
 
-        // Assuming recipes.recipes is an array of recipe objects
-        for (let i = 0; i < recipes.recipes.length; i++) {
+        for (let i = 0; i < recipes.length; i++) {
             const recipePreview = (
                 <RecipePreview
-                    name={recipes.recipes[i].name}
-                    ingredients={recipes.recipes[i].ingredients}
-                    difficulty={recipes.recipes[i].difficulty}
-                    time={recipes.recipes[i].time}
-                    image={recipes.recipes[i].image}
+                    name={recipes[i].description.name}
+                    ingredients={recipes[i].description.ingredients}
+                    difficulty={recipes[i].description.difficulty}
+                    time={recipes[i].description.time}
+                    image={recipes[i].img_url}
                     index={i}
                     key={i + ""}
                 />
             );
 
-            // Simple categorization logic (you can replace this with your own logic)
             if (i % 3 === 0) {
                 suggestions.push(recipePreview);
             } else if (i % 3 === 1) {
@@ -46,19 +62,17 @@ export default function Home() {
         }
 
         setPreviews({
-            suggestions: suggestions.slice(0, 3), // Display the first 3 in each category
-            recommended: recommended.slice(0, 3),
-            popular: popular.slice(0, 3)
+            suggestions: suggestions.slice(0, 4),
+            recommended: recommended.slice(0, 4),
+            popular: popular.slice(0, 4)
         });
     }, [recipes]);
 
     useEffect(() => {
-        // Check if there are search results to determine if searching
         setIsSearching(searchResults.length > 0);
     }, [searchResults]);
 
     const handleSearch = async (query) => {
-        // Create array of ingredients
         let inputs = query.toLowerCase();
         inputs = inputs.replaceAll(" ", "");
         const ingredients = inputs.split(",");
@@ -96,7 +110,7 @@ export default function Home() {
         if (data.length > 0) {
             console.log("Recipes found!")
         } else {
-            console.log("No Recipe with that RecipeIngredients!") //todo error modal
+            console.log("No Recipe with that RecipeIngredients!")
         }
     };
 
@@ -118,7 +132,7 @@ export default function Home() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
                             {previews.recommended}
                         </div>
-                        <h2 className="text-2xl font-bold mb-4">Beliebt</h2>
+                        <h2 className="text-2xl font-bold mb-4">Könnte dir gefallen</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
                             {previews.popular}
                         </div>
