@@ -1,16 +1,30 @@
-"use client";
-
+'use client';
 import React, { useState, useEffect, useMemo } from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
 import RecipePreview from "@/components/RecipePreview";
 import Navbar from "@/components/Navbar";
+import { redirect } from "next/navigation";
 
 export default function Home() {
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [showErrorBanner, setShowErrorBanner] = useState(false);
 
     const { recipes, setRecipes } = useRecipeContext();
+    const ingredients = [
+        "nudeln", "ei", "speck", "kaese", "hackfleisch", "tomatensauce", "zwiebel", "knoblauch",
+        "pesto", "parmesan", "olivenoel", "peperoncino", "petersilie", "sahne", "butter",
+        "lasagneblaetter", "spinat", "ricotta", "mozzarella", "haehnchenbrust", "kokosmilch",
+        "currypaste", "gemuese", "reis", "lachsfilet", "zitrone", "dill", "kartoffeln",
+        "rindfleisch_ravioli", "paprika", "zucchini", "marinade", "tomaten", "frisches_basilikum",
+        "gemischtes_gemuese", "basmatireis", "blaetterteig", "feta", "milch", "quinoa",
+        "gebratenes_gemuese", "avocado", "hummus", "rote_linsen", "gewuerze", "vollkornnudeln",
+        "basilikum", "karotten", "kirschtomaten", "mandeln", "balsamico", "aubergine", "couscous",
+        "gurke", "camembert", "paniermehl", "preiselbeersauce", "cherrytomaten", "kichererbsen",
+        "suesskartoffel", "vollkornbrot", "kresse", "linsen", "gemuesebruehe", "sellerie",
+        "paella_reis", "erbsen"
+    ];
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -20,7 +34,7 @@ export default function Home() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ "ingredients": ["hackfleisch", "nudeln", "reis", "käse", "tomate", "tomaten"] }),
+                body: JSON.stringify({ "ingredients": ingredients }),
             });
 
             const data = await response.json();
@@ -73,44 +87,47 @@ export default function Home() {
         setLoading(true);
         let inputs = query.toLowerCase();
         inputs = inputs.replaceAll(" ", "");
-        const ingredients = inputs.split(",");
-        console.log(JSON.stringify({"ingredients": ingredients}));
+        const searchIngredients = inputs.split(",");
 
-        const response = await fetch('http://142.132.226.214:3010/recipes/get', {
+        const responseSearch = await fetch('http://142.132.226.214:3010/recipes/get', {
             method: "POST",
             mode: 'cors',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({"ingredients": ingredients}),
+            body: JSON.stringify({ "ingredients": searchIngredients }),
         });
 
-        const data = await response.json();
-        console.log(data);
+        const dataSearch = await responseSearch.json();
 
-        let temp = [];
-        for (let i = 0; i < data.length; i++) {
-            temp.push(
+        const filteredRecipes = dataSearch.filter(recipe =>
+            searchIngredients.every(ingredient =>
+                recipe.description.ingredients.map(ing => ing.toLowerCase()).includes(ingredient)
+            )
+        );
+
+        if (filteredRecipes.length > 0) {
+            setRecipes(filteredRecipes);
+            setSearchResults(filteredRecipes.map((recipe, i) => (
                 <RecipePreview
-                    name={data[i].description.name}
-                    ingredients={data[i].description.ingredients}
-                    difficulty={data[i].description.difficulty}
-                    time={data[i].description.time}
-                    image={data[i].img_url}
+                    name={recipe.description.name}
+                    ingredients={recipe.description.ingredients}
+                    difficulty={recipe.description.difficulty}
+                    time={recipe.description.time}
+                    image={recipe.img_url}
                     index={i}
                     key={i + ""}
                 />
-            );
-        }
-
-        setSearchResults(temp);
-        setLoading(false);
-
-        if (data.length > 0) {
-            console.log("Recipes found!")
+            )));
         } else {
-            console.log("No Recipe with that RecipeIngredients!")
+            setSearchResults([]);
+            setShowErrorBanner(true);
+            setTimeout(() => {
+                setShowErrorBanner(false);
+            }, 2000);
         }
+
+        setLoading(false);
     };
 
     return (
@@ -120,6 +137,11 @@ export default function Home() {
                 <div style={{ backgroundColor: "white", height: "100vh", width: "100vw" }}></div>
             ) : (
                 <div className="p-4">
+                    {showErrorBanner && (
+                        <div className="bg-red-500 text-white px-4 py-5 fixed top-0 left-0 right-0 z-50 text-center">
+                            Keine Rezepte gefunden!
+                        </div>
+                    )}
                     {isSearching ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             {searchResults}

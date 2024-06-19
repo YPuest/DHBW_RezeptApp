@@ -69,7 +69,7 @@ export default function Recipe(props) {
                 <div className="flex justify-between items-center mb-4">
                     <button
                         className="btn"
-                        style={{ backgroundColor: "#4CAF50", color: "#fff" }}
+                        style={{backgroundColor: "#4CAF50", color: "#fff"}}
                         onClick={handleBack}
                     >
                         Zurück
@@ -77,7 +77,8 @@ export default function Recipe(props) {
                 </div>
                 <div className="flex flex-wrap items-center">
                     <div className="w-full sm:w-1/2 p-4">
-                        <Image src={img_url} alt={name} width={400} height={300} className="rounded-lg" priority={true} />
+                        <Image src={img_url} alt={name} width={400} height={300} className="rounded-lg"
+                               priority={true}/>
                     </div>
                     <div className="w-full sm:w-1/2 p-4">
                         <h1 className="text-3xl font-bold mb-2">{name}</h1>
@@ -100,8 +101,20 @@ export default function Recipe(props) {
                             </button>
                         )}
                     </div>
+                    <div className="p-4">
+                        <h2 className="text-xl font-semibold mb-2">Zutaten:</h2>
+                        <ul className="list-disc ml-4">
+                            {ingredients.map((ingredient, index) => (
+                                <li key={index} className="text-lg text-gray-700">{ingredient}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-                {preparation && <RecipeSteps steps={preparation} />}
+                <div className="p-4">
+                    <h2 className="text-xl font-semibold mb-2">Schritte:</h2>
+                    {preparation && <RecipeSteps steps={preparation}/>}
+                </div>
+
             </div>
         </div>
     );
