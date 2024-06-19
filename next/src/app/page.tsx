@@ -1,16 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useRecipeContext } from "@/components/Recipe-Provider";
 import RecipePreview from "@/components/RecipePreview";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
-    const [previews, setPreviews] = useState({
-        suggestions: [],
-        recommended: [],
-        popular: []
-    });
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -18,7 +13,6 @@ export default function Home() {
     const { recipes, setRecipes } = useRecipeContext();
 
     useEffect(() => {
-        // Fetch recipes from API
         const fetchRecipes = async () => {
             setLoading(true);
             const response = await fetch('http://142.132.226.214:3010/recipes/get', {
@@ -37,7 +31,7 @@ export default function Home() {
         fetchRecipes();
     }, [setRecipes]);
 
-    useEffect(() => {
+    const previews = useMemo(() => {
         let suggestions = [];
         let recommended = [];
         let popular = [];
@@ -64,11 +58,11 @@ export default function Home() {
             }
         }
 
-        setPreviews({
+        return {
             suggestions: suggestions.slice(0, 4),
             recommended: recommended.slice(0, 4),
             popular: popular.slice(0, 4)
-        });
+        };
     }, [recipes]);
 
     useEffect(() => {

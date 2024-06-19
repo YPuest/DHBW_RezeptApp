@@ -28,14 +28,15 @@ function Navbar({ onSearch }) {
     };
 
     return (
-        <div className="flex items-center justify-between mx-auto my-2">
+        <div className="flex flex-col md:flex-row items-center justify-between mx-auto my-2">
             <Link href='/' className='flex items-center ml-5' onClick={handleLogoClick}>
                 <Image src="/images/logo.png" alt="Logo with name" width={40} height={40} className="mr-2" />
                 <span className="text-xl font-bold font-mono">RezeptApp</span>
             </Link>
-            <Search onSearch={onSearch} />
-
-            <div className="dropdown dropdown-bottom dropdown-end">
+            <div className="mt-2 md:mt-0">
+                <Search onSearch={onSearch} />
+            </div>
+            <div className="dropdown dropdown-bottom dropdown-end mt-2 md:mt-0">
                 <label tabIndex={0} className="btn m-1" style={{ backgroundColor: "#4CAF50", color: "#fff" }}>Profil</label>
 
                 {isLoggedIn ? (

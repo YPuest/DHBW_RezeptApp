@@ -31,7 +31,7 @@ export default function Recipe(props) {
 
     if (!selectedRecipe) {
         redirect('/');
-        return <div>Loading...</div>;
+        return <div></div>;
     }
 
     const { name, difficulty, time, ingredients, preparation, im } = selectedRecipe.description;
