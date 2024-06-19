@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import Search from "@/components/Search";
-import { deleteCookie } from 'cookies-next';
+import {deleteCookie, setCookie} from 'cookies-next';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 
@@ -22,6 +22,7 @@ function Navbar({ onSearch }) {
 
     const handleLogout = () => {
         deleteCookie('loggedIn');
+        setCookie('user', null);
         setIsLoggedIn(false);
         window.location.reload(); // Page reload
     };

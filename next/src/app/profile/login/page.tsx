@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Alert from "@/components/Alert";
-import Logo from "@/components/Logo";  // Ensure the correct path is used
+import Logo from "@/components/Logo";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
@@ -34,6 +34,7 @@ const Login = () => {
                 .then((response) => {
                     if (response.ok) {
                         setCookie("loggedIn", true);
+                        setCookie('user', username);
                         router.push("/"); // Redirect to home page after successful login
                         router.refresh();
                     } else if (response.status === 401) {

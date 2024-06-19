@@ -1,16 +1,33 @@
 "use client";
-import React from 'react';
-import RecipeIngredients from "./RecipeIngredients";
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRecipeContext } from '@/components/Recipe-Provider';
 import RecipeSteps from "@/components/RecipeSteps";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
+import { getCookie, setCookie } from "cookies-next";
 
 export default function Recipe(props) {
-    const { selectedRecipe } = useRecipeContext();
+    let username;
+    const [showFavButton, setShowFavButton] = useState(false);
+    const [isFavorited, setIsFavorited] = useState(false);
 
-    console.log("SRRR")
-    console.log(selectedRecipe);
+    useEffect(() => {
+        username = getCookie('user');
+        console.log(username);
+
+        if (username !== 'null') {
+            setShowFavButton(true);
+        } else {
+            setShowFavButton(false);
+        }
+
+        let cookie_recipes = getCookie(username) || '';
+        if (cookie_recipes.split(',').includes(name)) {
+            setIsFavorited(true);
+        }
+    }, []);
+
+    const { selectedRecipe } = useRecipeContext();
 
     if (!selectedRecipe) {
         redirect('/');
@@ -20,8 +37,6 @@ export default function Recipe(props) {
     const { name, difficulty, time, ingredients, preparation, im } = selectedRecipe.description;
     const { img_url } = selectedRecipe;
 
-    //const {image} = 0;
-
     let prep = [];
     if (preparation) {
         for (let i = 0; i < preparation.length; i++) {
@@ -30,7 +45,18 @@ export default function Recipe(props) {
     }
 
     function handleFavorite() {
-        console.log("todo"); //todo
+        let username = getCookie('user');
+        let cookie_recipes = getCookie(username) || '';
+        let recipesArray = cookie_recipes.split(',').filter(recipe => recipe);
+
+        if (!isFavorited) {
+            recipesArray.push(name);
+        } else {
+            recipesArray = recipesArray.filter(recipe => recipe !== name);
+        }
+
+        setCookie(username, recipesArray.join(','));
+        setIsFavorited(!isFavorited);
     }
 
     function handleBack() {
@@ -43,7 +69,7 @@ export default function Recipe(props) {
                 <div className="flex justify-between items-center mb-4">
                     <button
                         className="btn"
-                        style={{backgroundColor: "#4CAF50", color: "#fff"}}
+                        style={{ backgroundColor: "#4CAF50", color: "#fff" }}
                         onClick={handleBack}
                     >
                         Zurück
@@ -61,13 +87,18 @@ export default function Recipe(props) {
                         <div className="text-lg text-gray-700 mb-4">
                             <span className="font-semibold">Zeit: </span>{time}
                         </div>
-                        <button
-                            className="btn w-full mb-4"
-                            style={{backgroundColor: "#4CAF50", color: "#fff"}}
-                            onClick={handleFavorite}
-                        >
-                            Favorisieren
-                        </button>
+                        {showFavButton && (
+                            <button
+                                className="btn w-full mb-4"
+                                style={{
+                                    backgroundColor: isFavorited ? "red" : "#4CAF50",
+                                    color: "#fff"
+                                }}
+                                onClick={handleFavorite}
+                            >
+                                {isFavorited ? "Favorisiert" : "Favorisieren"}
+                            </button>
+                        )}
                     </div>
                 </div>
                 {preparation && <RecipeSteps steps={preparation} />}

@@ -13,12 +13,14 @@ export default function Home() {
     });
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const { recipes, setRecipes } = useRecipeContext();
 
     useEffect(() => {
         // Fetch recipes from API
         const fetchRecipes = async () => {
+            setLoading(true);
             const response = await fetch('http://142.132.226.214:3010/recipes/get', {
                 method: "POST",
                 headers: {
@@ -29,6 +31,7 @@ export default function Home() {
 
             const data = await response.json();
             setRecipes(data);
+            setLoading(false);
         };
 
         fetchRecipes();
@@ -73,6 +76,7 @@ export default function Home() {
     }, [searchResults]);
 
     const handleSearch = async (query) => {
+        setLoading(true);
         let inputs = query.toLowerCase();
         inputs = inputs.replaceAll(" ", "");
         const ingredients = inputs.split(",");
@@ -106,6 +110,7 @@ export default function Home() {
         }
 
         setSearchResults(temp);
+        setLoading(false);
 
         if (data.length > 0) {
             console.log("Recipes found!")
@@ -117,28 +122,32 @@ export default function Home() {
     return (
         <>
             <Navbar onSearch={handleSearch} />
-            <div className="p-4">
-                {isSearching ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {searchResults}
-                    </div>
-                ) : (
-                    <>
-                        <h2 className="text-2xl font-bold mb-4">Unsere Vorschläge</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-                            {previews.suggestions}
+            {loading ? (
+                <div style={{ backgroundColor: "white", height: "100vh", width: "100vw" }}></div>
+            ) : (
+                <div className="p-4">
+                    {isSearching ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {searchResults}
                         </div>
-                        <h2 className="text-2xl font-bold mb-4">Von unserem Koch empfohlen</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-                            {previews.recommended}
-                        </div>
-                        <h2 className="text-2xl font-bold mb-4">Könnte dir gefallen</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-                            {previews.popular}
-                        </div>
-                    </>
-                )}
-            </div>
+                    ) : (
+                        <>
+                            <h2 className="text-2xl font-bold mb-4">Unsere Vorschläge</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+                                {previews.suggestions}
+                            </div>
+                            <h2 className="text-2xl font-bold mb-4">Von unserem Koch empfohlen</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+                                {previews.recommended}
+                            </div>
+                            <h2 className="text-2xl font-bold mb-4">Könnte dir gefallen</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+                                {previews.popular}
+                            </div>
+                        </>
+                    )}
+                </div>
+            )}
         </>
     );
 }

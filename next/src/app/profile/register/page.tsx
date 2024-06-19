@@ -38,6 +38,7 @@ const Register = () => {
           .then((response) => {
             if (response.ok) {
               setCookie("loggedIn", true);
+              setCookie('user', username);
               router.push("/"); // Redirect to home page after successful registration
               router.refresh();
             } else if (response.status === 400) {
