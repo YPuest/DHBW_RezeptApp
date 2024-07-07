@@ -13,8 +13,8 @@ export default function Home() {
 
     const { recipes, setRecipes } = useRecipeContext();
     const ingredients = [
-        "nudeln", "ei", "speck", "kaese", "hackfleisch", "tomatensauce", "zwiebel", "knoblauch",
-        "pesto", "parmesan", "olivenoel", "peperoncino", "petersilie", "sahne", "butter",
+        "hackfleisch", "tomatensauce", "zwiebel", "knoblauch",
+        "pesto", "olivenoel", "peperoncino", "petersilie",
         "lasagneblaetter", "spinat", "ricotta", "mozzarella", "haehnchenbrust", "kokosmilch",
         "currypaste", "gemuese", "reis", "lachsfilet", "zitrone", "dill", "kartoffeln",
         "rindfleisch_ravioli", "paprika", "zucchini", "marinade", "tomaten", "frisches_basilikum",
