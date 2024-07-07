@@ -13,7 +13,6 @@ export default function Recipe(props) {
 
     useEffect(() => {
         username = getCookie('user');
-        console.log(username);
 
         if (username !== 'null') {
             setShowFavButton(true);

@@ -61,7 +61,7 @@ const Login = () => {
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
-            <div className="mb-12"> {/* Adjust the margin bottom value as needed */}
+            <div className="mb-12">
                 <Logo width={40} height={40} className="" />
             </div>
             <div className="w-full max-w-xs mx-auto">

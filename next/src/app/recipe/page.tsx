@@ -1,8 +1,7 @@
 import React from 'react';
 import Recipe from "@/components/Recipe";
 
-function Page(props) {
-
+function Page() {
     return (
         <div>
             <Recipe />

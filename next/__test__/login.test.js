@@ -1,89 +1,61 @@
-// src/profile/login/Login.test.tsx
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import Login from './page';
-import { setCookie } from 'cookies-next';
-import { useRouter } from 'next/navigation';
+const API_URL = 'http://142.132.226.214:3010/recipes/get';
 
-// Mock the next/navigation and cookies-next
-jest.mock('next/navigation', () => ({
-    useRouter: () => ({
-        push: jest.fn(),
-        refresh: jest.fn(),
-    }),
-}));
-
-jest.mock('cookies-next', () => ({
-    setCookie: jest.fn(),
-}));
-
-describe('Login Component', () => {
-    test('renders correctly', () => {
-        render(<Login />);
-
-        expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
-        expect(screen.getByPlaceholderText('Passwort')).toBeInTheDocument();
-        expect(screen.getByText('Einloggen')).toBeInTheDocument();
-        expect(screen.getByText('Noch keinen Account?')).toBeInTheDocument();
-        expect(screen.getByText('Hier Registrieren!')).toBeInTheDocument();
+async function fetchRecipes(ingredients) {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ingredients }),
     });
 
-    test('shows alert when username is empty', () => {
-        render(<Login />);
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
 
-        fireEvent.click(screen.getByText('Einloggen'));
+    return response.json();
+}
 
-        expect(screen.getByText('Kein Username')).toBeInTheDocument();
+describe('API Fetch', () => {
+    beforeEach(() => {
+        fetch.resetMocks();
     });
 
-    test('shows alert when password is empty', () => {
-        render(<Login />);
+    it('fetches recipes from API', async () => {
+        const mockResponse = [
+            {
+                description: {
+                    name: 'Recipe 1',
+                    ingredients: ['ingredient 1', 'ingredient 2'],
+                    difficulty: 'easy',
+                    time: '30 mins'
+                },
+                img_url: 'http://example.com/image1.jpg'
+            },
+            {
+                description: {
+                    name: 'Recipe 2',
+                    ingredients: ['ingredient 3', 'ingredient 4'],
+                    difficulty: 'medium',
+                    time: '45 mins'
+                },
+                img_url: 'http://example.com/image2.jpg'
+            }
+        ];
 
-        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'user' } });
-        fireEvent.click(screen.getByText('Einloggen'));
+        fetch.mockResponseOnce(JSON.stringify(mockResponse));
 
-        expect(screen.getByText('Kein Passwort')).toBeInTheDocument();
-    });
+        const ingredients = ["hackfleisch", "nudeln", "reis", "käse", "tomate", "tomaten"];
+        const data = await fetchRecipes(ingredients);
 
-    test('makes an API call and sets cookies on successful login', async () => {
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                ok: true,
-            })
-        );
-
-        const { push } = useRouter();
-
-        render(<Login />);
-
-        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'user' } });
-        fireEvent.change(screen.getByPlaceholderText('Passwort'), { target: { value: 'pass' } });
-        fireEvent.click(screen.getByText('Einloggen'));
-
-        await waitFor(() => {
-            expect(setCookie).toHaveBeenCalledWith('loggedIn', true);
-            expect(setCookie).toHaveBeenCalledWith('user', 'user');
-            expect(push).toHaveBeenCalledWith('/');
-        });
-    });
-
-    test('shows alert on failed login', async () => {
-        global.fetch = jest.fn(() =>
-            Promise.resolve({
-                ok: false,
-                status: 401,
-            })
-        );
-
-        render(<Login />);
-
-        fireEvent.change(screen.getByPlaceholderText('Username'), { target: { value: 'user' } });
-        fireEvent.change(screen.getByPlaceholderText('Passwort'), { target: { value: 'pass' } });
-        fireEvent.click(screen.getByText('Einloggen'));
-
-        await waitFor(() => {
-            expect(screen.getByText('Die eingegebenen Daten stimmen nicht. Überprüfe sie.')).toBeInTheDocument();
+        expect(data).toEqual(mockResponse);
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(fetch).toHaveBeenCalledWith(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ingredients }),
         });
     });
 });

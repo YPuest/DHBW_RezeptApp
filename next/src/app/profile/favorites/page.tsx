@@ -3,15 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { useRecipeContext } from '@/components/Recipe-Provider';
 import RecipePreview from '@/components/RecipePreview';
-import { getCookie } from 'cookies-next'; // assuming you have cookies-next installed for cookie handling
+import { getCookie } from 'cookies-next';
 
 export default function Favorites() {
     const { recipes, setRecipes } = useRecipeContext();
     const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
     useEffect(() => {
-        const user = getCookie('user');
-        const favorites = getCookie(user); // Fetch the favorite recipe names from the cookie
+        const user = getCookie('user'); // Fetch the user from cookies
+        const favorites = getCookie(user); // Fetch the favorite recipe names from the users cookie
         if (favorites) {
             const favoriteNames = favorites.split(',');
 
@@ -21,7 +21,6 @@ export default function Favorites() {
             );
 
             setRecipes(filteredRecipes);
-            console.log(recipes);
 
             // Create previews only for favorite recipes
             const favoriteRecipePreviews = filteredRecipes.map((recipe, index) => (
