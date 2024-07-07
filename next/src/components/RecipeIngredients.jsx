@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export default function RecipeIngredients(props) {
     let ingredients = [];
     for (let i = 0; i < props.ingredients.length; i++) {

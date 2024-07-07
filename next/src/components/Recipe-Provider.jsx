@@ -9,26 +9,7 @@ export function useRecipeContext(){
 }
 
 export default function RecipeProvider({ children }) {
-    const [recipes, setRecipes] = useState([
-        {
-            name: 'Recipe1',
-            difficulty: 'Easy',
-            time: '30 minutes',
-            ingredients: ['Ingredient1', 'Ingredient2'],
-            preparation: ['Step1', 'Step2'],
-            image: "https://i.imgur.com/WaQ0dMz.png",
-        },
-        {
-            name: 'Recipe2',
-            difficulty: 'Easy',
-            time: '30 minutes',
-            ingredients: ['Ingredient1', 'Ingredient2'],
-            preparation: ['Step1', 'Step2'],
-            image: "https://i.imgur.com/WaQ0dMz.png",
-        },
-        // Add more recipes as needed
-    ]);
-
+    const [recipes, setRecipes] = useState([]);
     const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(0);
 
     const selectedRecipe = recipes[selectedRecipeIndex];
