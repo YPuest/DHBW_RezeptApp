@@ -1,11 +1,18 @@
 import React from 'react';
 
 export default function RecipeSteps(props) {
-    let steps = [];
-    for (let i = 0; i < props.steps.length; i++) {
-        steps.push(`Schritt ${i}`)
-        steps.push(<div key={i}>{props.steps[i]}</div>)
-    }
+    const customGreenBorderStyle = {
+        borderLeft: '4px solid #4CAF50'
+    };
+
+    const steps = props.steps.map((step, index) => (
+        <div key={index} className="mb-4">
+            <div style={customGreenBorderStyle} className="pl-4">
+                <p className="text-lg font-semibold">Schritt {index + 1}</p>
+                <p className="ml-2">{step}</p>
+            </div>
+        </div>
+    ));
 
     return (
         <div>
