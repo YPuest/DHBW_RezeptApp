@@ -4,6 +4,7 @@ import { useRecipeContext } from "@/components/Recipe-Provider";
 import RecipePreview from "@/components/RecipePreview";
 import Navbar from "@/components/Navbar";
 import { redirect } from "next/navigation";
+import Head from 'next/head'
 
 export default function Home() {
     const [searchResults, setSearchResults] = useState([]);
@@ -132,7 +133,7 @@ export default function Home() {
 
     return (
         <>
-            <Navbar onSearch={handleSearch} />
+            <Navbar onSearch={handleSearch}/>
             {loading ? (
                 <div style={{ backgroundColor: "white", height: "100vh", width: "100vw" }}></div>
             ) : (
