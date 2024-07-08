@@ -1,61 +1,53 @@
-const API_URL = 'http://142.132.226.214:3010/recipes/get';
+// src/profile/login/RecipePreview.test.tsx
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import RecipePreview from './RecipePreview';
+import { useRecipeContext } from '@/components/Recipe-Provider';
 
-async function fetchRecipes(ingredients) {
-    const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ingredients }),
+// Mock the next/link
+jest.mock('next/link', () => {
+    return ({ children, href, onClick }) => (
+        <a href={href} onClick={onClick}>
+            {children}
+        </a>
+    );
+});
+
+// Mock the Recipe-Provider
+jest.mock('@/components/Recipe-Provider');
+
+describe('RecipePreview Component', () => {
+    const mockSelectRecipe = jest.fn();
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
+    const defaultProps = {
+        name: 'Recipe Name',
+        ingredients: ['Ingredient 1', 'Ingredient 2'],
+        image: '/image/path.jpg',
+        difficulty: 'Easy',
+        time: '30 mins',
+        index: 0,
+    };
 
-    return response.json();
-}
+    test('renders correctly', () => {
+        render(<RecipePreview {...defaultProps} />);
 
-describe('API Fetch', () => {
-    beforeEach(() => {
-        fetch.resetMocks();
+        expect(screen.getByText('Recipe Name')).toBeInTheDocument();
+        expect(screen.getByText('Ingredient 1, Ingredient 2')).toBeInTheDocument();
+        expect(screen.getByAltText('Recipe Name')).toHaveAttribute('src', '/image/path.jpg');
+        expect(screen.getByText('Easy')).toBeInTheDocument();
+        expect(screen.getByText('30 mins')).toBeInTheDocument();
     });
 
-    it('fetches recipes from API', async () => {
-        const mockResponse = [
-            {
-                description: {
-                    name: 'Recipe 1',
-                    ingredients: ['ingredient 1', 'ingredient 2'],
-                    difficulty: 'easy',
-                    time: '30 mins'
-                },
-                img_url: 'http://example.com/image1.jpg'
-            },
-            {
-                description: {
-                    name: 'Recipe 2',
-                    ingredients: ['ingredient 3', 'ingredient 4'],
-                    difficulty: 'medium',
-                    time: '45 mins'
-                },
-                img_url: 'http://example.com/image2.jpg'
-            }
-        ];
+    test('calls selectRecipe on click', () => {
+        render(<RecipePreview {...defaultProps} />);
 
-        fetch.mockResponseOnce(JSON.stringify(mockResponse));
+        fireEvent.click(screen.getByText('Recipe Name'));
 
-        const ingredients = ["hackfleisch", "nudeln", "reis", "käse", "tomate", "tomaten"];
-        const data = await fetchRecipes(ingredients);
-
-        expect(data).toEqual(mockResponse);
-        expect(fetch).toHaveBeenCalledTimes(1);
-        expect(fetch).toHaveBeenCalledWith(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ingredients }),
-        });
+        expect(mockSelectRecipe).toHaveBeenCalledWith(0);
     });
 });
